@@ -1,133 +1,1069 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#1a3a5c" />
-  <meta name="description" content="S R Patil Hospital & Research Centre, Badgandi — Hospital Management System" />
-  <title>SRP Hospital — Badgandi</title>
-  <link rel="manifest" href="manifest.json" />
-  <link rel="stylesheet" href="css/main.css" />
-  <link rel="stylesheet" href="css/components.css" />
-  <link rel="stylesheet" href="css/responsive.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#1a3a5c"/>
+<title>SRP Hospital — Badgandi</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"/>
+<style>
+:root{--pr:#1a3a5c;--pl:#2563a8;--ac:#c8873a;--su:#1a7a4a;--da:#b83232;--wa:#c87a00;--in:#1a6a9a;--bg:#f0f3f8;--sf:#fff;--s2:#eef1f7;--s3:#e4e9f2;--bd:rgba(26,58,92,.12);--tx:#0f1e30;--t2:#4a6080;--t3:#8a9fb8;--sw:260px;--th:60px;--ra:10px;--sh:0 2px 12px rgba(0,0,0,.08);--shm:0 4px 24px rgba(0,0,0,.12);--shl:0 8px 48px rgba(0,0,0,.18)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-thumb{background:var(--s3);border-radius:4px}
+.hidden{display:none!important}
+/* LOGIN */
+.login-screen{min-height:100vh;background:linear-gradient(135deg,#1a3a5c 0%,#0d2540 60%,#1a3a5c 100%);display:flex;align-items:center;justify-content:center;padding:20px}
+.login-card{background:#fff;border-radius:16px;padding:40px 36px;width:100%;max-width:420px;box-shadow:var(--shl)}
+.login-logo{text-align:center;margin-bottom:28px}
+.login-logo-icon{width:64px;height:64px;background:var(--pr);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:32px;color:#fff;margin:0 auto 12px;box-shadow:0 4px 16px rgba(26,58,92,.3)}
+.login-logo h1{font-family:'Playfair Display',serif;font-size:22px;color:var(--pr);line-height:1.2}
+.login-logo p{font-size:13px;color:var(--t2);margin-top:4px}
+.login-note{font-size:12px;color:var(--t3);text-align:center;margin-top:12px}
+.iw{position:relative}.iw i{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:17px;color:var(--t3)}.iw input{padding-left:36px!important}
+/* APP SHELL */
+.app-shell{display:flex;min-height:100vh}
+/* SIDEBAR */
+aside{position:fixed;top:0;left:0;bottom:0;width:var(--sw);background:#fff;border-right:1px solid var(--bd);display:flex;flex-direction:column;z-index:200;overflow:hidden;transition:transform .2s ease}
+.sb-head{display:flex;align-items:center;justify-content:space-between;padding:16px 16px 0;flex-shrink:0}
+.sb-logo{display:flex;align-items:center;gap:10px}
+.logo-icon{width:36px;height:36px;background:var(--pr);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;flex-shrink:0}
+.logo-name{display:block;font-size:13.5px;font-weight:700;color:var(--tx);line-height:1.2}
+.logo-sub{display:block;font-size:11px;color:var(--t3)}
+.sb-close{display:none;background:none;border:none;font-size:20px;color:var(--t2);cursor:pointer;padding:4px;border-radius:6px}
+.sb-user{display:flex;align-items:center;gap:10px;padding:12px 14px;margin:12px 10px 0;background:var(--s2);border-radius:var(--ra);flex-shrink:0}
+.sb-uname{font-size:13px;font-weight:600;color:var(--tx);line-height:1.2}
+.sb-urole{font-size:11px;color:var(--t3)}
+.online-dot{width:8px;height:8px;background:#22c55e;border-radius:50%;margin-left:auto;flex-shrink:0;box-shadow:0 0 5px #22c55e}
+.sb-nav{flex:1;overflow-y:auto;padding:6px 0 24px}
+.nav-sec{padding:0 10px;margin-top:8px}
+.nav-lbl{font-size:10px;font-weight:600;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;padding:6px 8px 4px}
+.nav-item{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:8px;font-size:13px;font-weight:500;color:var(--t2);cursor:pointer;border:none;background:none;width:100%;text-align:left;transition:all .15s;margin-bottom:1px;font-family:'Inter',sans-serif}
+.nav-item i{font-size:18px;flex-shrink:0}
+.nav-item:hover{background:var(--s2);color:var(--pr)}
+.nav-item.active{background:rgba(26,58,92,.09);color:var(--pr);font-weight:600}
+.nav-badge{margin-left:auto;font-size:10px;font-weight:700;padding:1px 7px;border-radius:20px;color:#fff;flex-shrink:0}
+.nb-red{background:var(--da)}.nb-green{background:var(--su)}.nb-amber{background:var(--wa)}.nb-blue{background:var(--in)}
+.sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:190}
+/* MAIN */
+.main-wrap{flex:1;margin-left:var(--sw);display:flex;flex-direction:column;min-width:0}
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:100;height:var(--th);background:#fff;border-bottom:1px solid var(--bd);display:flex;align-items:center;padding:0 20px;gap:12px;box-shadow:var(--sh)}
+.tb-menu{display:none;background:none;border:none;font-size:22px;color:var(--t2);cursor:pointer;padding:4px;border-radius:6px}
+.tb-title{font-size:16px;font-weight:700;color:var(--tx);flex:1}
+.tb-actions{display:flex;align-items:center;gap:4px}
+.tb-btn{position:relative;background:none;border:none;width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--t2);cursor:pointer;transition:.15s}
+.tb-btn:hover{background:var(--s2);color:var(--pr)}
+.notif-badge{position:absolute;top:4px;right:4px;background:var(--da);color:#fff;font-size:9px;font-weight:700;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+/* PAGE */
+.page-content{flex:1;padding:22px 26px;overflow-x:hidden}
+.page-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px;gap:16px;color:var(--t2)}
+.spinner{width:36px;height:36px;border:3px solid var(--bd);border-top-color:var(--pr);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* PAGE HEADER */
+.ph{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px;gap:12px;flex-wrap:wrap}
+.ph h2{font-size:20px;font-weight:700}
+.ph p{font-size:13px;color:var(--t2);margin-top:2px}
+.ph-r{display:flex;gap:8px;flex-wrap:wrap}
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;border:none;transition:.15s;white-space:nowrap;text-decoration:none}
+.btn i{font-size:16px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn-pr{background:var(--pr);color:#fff}.btn-pr:hover{background:var(--pl)}
+.btn-ac{background:var(--ac);color:#fff}.btn-ac:hover{opacity:.9}
+.btn-su{background:var(--su);color:#fff}.btn-su:hover{opacity:.9}
+.btn-da{background:var(--da);color:#fff}.btn-da:hover{opacity:.9}
+.btn-wa{background:var(--wa);color:#fff}.btn-wa:hover{opacity:.9}
+.btn-ol{background:#fff;border:1px solid var(--bd);color:var(--t2)}.btn-ol:hover{background:var(--s2);color:var(--pr)}
+.btn-sm{padding:5px 10px;font-size:12px}.btn-sm i{font-size:14px}
+.btn-full{width:100%}
+/* CARDS */
+.card{background:#fff;border:1px solid var(--bd);border-radius:var(--ra);padding:18px 20px;box-shadow:var(--sh)}
+.card+.card{margin-top:16px}
+.card-title{font-size:14px;font-weight:700;color:var(--tx);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.card-title i{font-size:18px;color:var(--pl)}
+/* METRICS */
+.mg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:20px}
+.mc{background:#fff;border:1px solid var(--bd);border-radius:var(--ra);padding:14px 16px;border-left:4px solid var(--pr);box-shadow:var(--sh)}
+.mc.ac{border-left-color:var(--ac)}.mc.su{border-left-color:var(--su)}.mc.da{border-left-color:var(--da)}.mc.wa{border-left-color:var(--wa)}.mc.in{border-left-color:var(--in)}
+.ml{font-size:10.5px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.07em}
+.mv{font-size:24px;font-weight:700;color:var(--tx);margin:4px 0 2px;line-height:1}
+.ms{font-size:11.5px;color:var(--t2)}
+.ms.up{color:var(--su)}.ms.dn{color:var(--da)}
+/* TABLE */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead tr{background:var(--s2)}
+th{font-size:10.5px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.06em;padding:10px 13px;text-align:left;border-bottom:1px solid var(--bd);white-space:nowrap}
+td{padding:10px 13px;border-bottom:1px solid var(--bd);color:var(--tx);vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:var(--s2)}
+/* STATUS */
+.st{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;white-space:nowrap}
+.st::before{content:'';width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.st-ok{background:#e6f7ee;color:var(--su)}.st-ok::before{background:var(--su)}
+.st-wa{background:#fef3e2;color:var(--wa)}.st-wa::before{background:var(--wa)}
+.st-da{background:#fee8e8;color:var(--da)}.st-da::before{background:var(--da)}
+.st-in{background:#dce8f8;color:var(--in)}.st-in::before{background:var(--in)}
+/* TAGS */
+.tag{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:6px}
+.tg-bl{background:#dce8f8;color:var(--pr)}.tg-am{background:#fcefd6;color:var(--wa)}.tg-gr{background:#d6f0e4;color:var(--su)}.tg-rd{background:#fce0e0;color:var(--da)}.tg-gy{background:var(--s2);color:var(--t2)}
+/* AVATAR */
+.av{border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;flex-shrink:0}
+.av-sm{width:28px;height:28px;font-size:10px}.av-md{width:36px;height:36px;font-size:13px}.av-lg{width:52px;height:52px;font-size:18px;border-radius:12px}.av-xl{width:64px;height:64px;font-size:22px;border-radius:14px}
+.c-pr{background:var(--pr)}.c-ac{background:var(--ac)}.c-su{background:var(--su)}.c-da{background:var(--da)}.c-wa{background:var(--wa)}.c-in{background:var(--in)}.c-tl{background:#1a7a6a}.c-pu{background:#6b3fa0}
+/* PROFILE CHIP */
+.pc{display:flex;align-items:center;gap:8px}
+/* FORMS */
+.fg{margin-bottom:13px}
+.fg label{display:block;font-size:12px;font-weight:600;color:var(--t2);margin-bottom:5px}
+.fg input,.fg select,.fg textarea{width:100%;padding:9px 12px;border:1px solid var(--bd);border-radius:8px;font-size:13px;color:var(--tx);background:#fff;font-family:'Inter',sans-serif;outline:none;transition:.15s;-webkit-appearance:none}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--pl);box-shadow:0 0 0 3px rgba(37,99,168,.1)}
+.fg textarea{resize:vertical;min-height:75px}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+/* MODAL */
+.mo{display:none;position:fixed;inset:0;z-index:500;background:rgba(10,20,40,.55);align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(2px)}
+.mo.open{display:flex}
+.md{background:#fff;border-radius:14px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;box-shadow:var(--shl);animation:mdin .2s ease}
+.md-lg{max-width:720px}
+@keyframes mdin{from{transform:translateY(20px) scale(.97);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
+.mh{display:flex;align-items:center;justify-content:space-between;padding:18px 20px 0;position:sticky;top:0;background:#fff;z-index:1}
+.mh h3{font-size:16px;font-weight:700}
+.mc-btn{background:var(--s2);border:none;border-radius:8px;width:30px;height:30px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:var(--t2)}
+.mc-btn:hover{background:var(--s3)}
+.mb{padding:16px 20px 20px}
+.mf{display:flex;gap:8px;justify-content:flex-end;padding-top:14px;border-top:1px solid var(--bd);margin-top:16px}
+/* TABS */
+.tabs{display:flex;border-bottom:1px solid var(--bd);margin-bottom:18px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tab{padding:9px 15px;font-size:13px;font-weight:500;color:var(--t2);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;white-space:nowrap;transition:.15s;font-family:'Inter',sans-serif}
+.tab:hover{color:var(--pr)}.tab.active{color:var(--pr);border-bottom-color:var(--pr);font-weight:600}
+.tab-panel{display:none}.tab-panel.active{display:block}
+/* PROGRESS */
+.pbar{background:var(--s2);border-radius:4px;height:7px;overflow:hidden}
+.pfill{height:100%;border-radius:4px;transition:width .4s}
+.pf-pr{background:var(--pl)}.pf-su{background:var(--su)}.pf-da{background:var(--da)}.pf-wa{background:var(--wa)}.pf-ac{background:var(--ac)}
+/* ACTIVITY */
+.ai{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--bd)}
+.ai:last-child{border-bottom:none}
+.ai-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.ai-bl{background:#dce8f8;color:var(--pr)}.ai-gr{background:#d6f0e4;color:var(--su)}.ai-am{background:#fcefd6;color:var(--wa)}.ai-rd{background:#fce0e0;color:var(--da)}
+.ai-body{flex:1;min-width:0}.ai-body p{font-size:13px}.ai-body span{font-size:11px;color:var(--t3)}
+/* ANNOUNCE */
+.ac-card{background:#fff;border:1px solid var(--bd);border-left:4px solid var(--pr);border-radius:var(--ra);padding:13px 16px;margin-bottom:11px;box-shadow:var(--sh)}
+.ac-card.urgent{border-left-color:var(--da)}.ac-card.success{border-left-color:var(--su)}.ac-card.info{border-left-color:var(--in)}.ac-card.warning{border-left-color:var(--wa)}
+.ac-title{font-size:14px;font-weight:600;margin-bottom:4px}
+.ac-meta{font-size:11px;color:var(--t3);margin-bottom:5px;display:flex;gap:8px;flex-wrap:wrap}
+.ac-body{font-size:13px;color:var(--t2);line-height:1.6}
+/* TIMELINE */
+.tl{position:relative;padding-left:26px}
+.tl::before{content:'';position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--bd)}
+.tl-item{position:relative;margin-bottom:16px}
+.tl-item::before{content:'';position:absolute;left:-23px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--pl);border:2px solid #fff}
+.tl-date{font-size:11px;color:var(--t3);margin-bottom:3px}
+.tl-text{font-size:13.5px}
+/* SEARCH BAR */
+.sbar{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--bd);border-radius:8px;padding:7px 12px}
+.sbar:focus-within{border-color:var(--pl)}
+.sbar i{color:var(--t3);font-size:16px;flex-shrink:0}
+.sbar input{border:none;outline:none;font-size:13.5px;color:var(--tx);background:transparent;flex:1;font-family:'Inter',sans-serif;min-width:0}
+/* FILTER ROW */
+.frow{display:flex;align-items:center;gap:9px;margin-bottom:14px;flex-wrap:wrap}
+.frow select{padding:7px 11px;border:1px solid var(--bd);border-radius:8px;font-size:13px;color:var(--tx);background:#fff;font-family:'Inter',sans-serif;cursor:pointer;outline:none;-webkit-appearance:none}
+/* GRIDS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+/* DEPT CARD */
+.dc{background:#fff;border:1px solid var(--bd);border-radius:var(--ra);padding:16px;box-shadow:var(--sh);cursor:pointer;transition:.15s}
+.dc:hover{box-shadow:var(--shm);transform:translateY(-2px)}
+.dc-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:21px;margin-bottom:8px}
+.dc-name{font-size:14px;font-weight:700;margin-bottom:2px}
+.dc-info{font-size:12px;color:var(--t2)}
+.dc-stat{font-size:22px;font-weight:700;color:var(--pr);margin-top:7px}
+.dc-sl{font-size:11px;color:var(--t3)}
+/* UTILS */
+.flex{display:flex}.fc{display:flex;align-items:center}.fb{display:flex;align-items:center;justify-content:space-between}
+.gap8{gap:8px}.gap10{gap:10px}.gap12{gap:12px}.gap16{gap:16px}
+.mt8{margin-top:8px}.mt12{margin-top:12px}.mt16{margin-top:16px}.mt20{margin-top:20px}
+.mb8{margin-bottom:8px}.mb12{margin-bottom:12px}.mb14{margin-bottom:14px}
+.tm{color:var(--t2);font-size:13px}.tsm{font-size:12px}.fw6{font-weight:600}.fw7{font-weight:700}
+hr.dv{border:none;border-top:1px solid var(--bd);margin:16px 0}
+.es{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:50px 20px;color:var(--t3);text-align:center}
+.es i{font-size:44px;margin-bottom:10px}.es h4{font-size:15px;font-weight:600;color:var(--t2);margin-bottom:5px}.es p{font-size:13px}
+/* TOAST */
+#toast-c{position:fixed;bottom:18px;right:18px;z-index:9999;display:flex;flex-direction:column;gap:7px}
+.toast{background:var(--tx);color:#fff;padding:11px 16px;border-radius:10px;font-size:13.5px;box-shadow:var(--shm);display:flex;align-items:center;gap:9px;animation:tup .22s ease;max-width:320px}
+.toast.success{background:var(--su)}.toast.error{background:var(--da)}.toast.warning{background:var(--wa)}
+@keyframes tup{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}
+/* PRINT */
+@media print{aside,.topbar,.ph-r,.btn,#toast-c{display:none!important}.main-wrap{margin-left:0!important}.page-content{padding:12px!important}}
+/* RESPONSIVE */
+@media(max-width:768px){
+  aside{transform:translateX(-100%);box-shadow:var(--shl)}
+  aside.open{transform:translateX(0)}
+  .sb-overlay.open{display:block}
+  .sb-close{display:flex}
+  .main-wrap{margin-left:0}
+  .tb-menu{display:flex}
+  .page-content{padding:14px}
+  .g2,.g3{grid-template-columns:1fr}
+  .fr{grid-template-columns:1fr}
+  .mg{grid-template-columns:repeat(2,1fr)}
+  .ph{flex-direction:column;align-items:flex-start}
+  .ph-r{width:100%}
+}
+@media(max-width:480px){
+  .mg{grid-template-columns:repeat(2,1fr);gap:9px}
+  .mv{font-size:20px}
+  .login-card{padding:26px 18px}
+  .mo{padding:8px;align-items:flex-end}
+  .md{border-bottom-left-radius:0;border-bottom-right-radius:0;max-height:92vh}
+  #toast-c{bottom:10px;right:10px;left:10px}
+  .toast{max-width:100%}
+  .hxs{display:none!important}
+}
+@media(min-width:1400px){.page-content{padding:26px 34px}}
+</style>
 </head>
 <body>
 
-  <!-- LOGIN SCREEN -->
-  <div id="login-screen" class="login-screen">
-    <div class="login-card">
-      <div class="login-logo">
-        <div class="login-logo-icon"><i class="ti ti-heart-plus"></i></div>
-        <h1>S R Patil Hospital</h1>
-        <p>& Research Centre, Badgandi</p>
+<!-- ══ LOGIN ══ -->
+<div id="login-screen" class="login-screen">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-logo-icon"><i class="ti ti-heart-plus"></i></div>
+      <h1>S R Patil Hospital</h1>
+      <p>&amp; Research Centre, Badgandi</p>
+    </div>
+    <div class="form-group" style="margin-bottom:13px">
+      <div class="fg"><label>Username</label>
+        <div class="iw"><i class="ti ti-user"></i><input type="text" id="lu" placeholder="Enter username" value="admin"/></div>
       </div>
-      <div class="login-form">
-        <div class="form-group">
-          <label>Username</label>
-          <div class="input-icon-wrap"><i class="ti ti-user"></i><input type="text" id="login-user" placeholder="Enter username" value="admin" /></div>
-        </div>
-        <div class="form-group">
-          <label>Password</label>
-          <div class="input-icon-wrap"><i class="ti ti-lock"></i><input type="password" id="login-pass" placeholder="Enter password" value="admin123" /></div>
-        </div>
-        <div class="form-group">
-          <label>Role</label>
-          <select id="login-role">
-            <option value="chairman">Chairman</option>
-            <option value="ceo">CEO / Director</option>
-            <option value="admin" selected>Admin</option>
-            <option value="doctor">Doctor</option>
-            <option value="nurse">Nurse</option>
-            <option value="hr">HR Manager</option>
-            <option value="finance">Finance Officer</option>
-            <option value="reception">Reception</option>
-          </select>
-        </div>
-        <button class="btn btn-primary btn-full" onclick="doLogin()">
-          <i class="ti ti-login"></i> Sign In
+      <div class="fg"><label>Password</label>
+        <div class="iw"><i class="ti ti-lock"></i><input type="password" id="lp" placeholder="Password" value="admin123"/></div>
+      </div>
+      <div class="fg"><label>Login As</label>
+        <select id="lr">
+          <option value="chairman">👑 Chairman</option>
+          <option value="ceo">🏢 CEO / Director</option>
+          <option value="admin" selected>⚙️ Admin</option>
+          <option value="doctor">🩺 Doctor</option>
+          <option value="nurse">💊 Nurse</option>
+          <option value="hr">👥 HR Manager</option>
+          <option value="finance">💰 Finance Officer</option>
+          <option value="reception">🖥️ Reception</option>
+        </select>
+      </div>
+      <button class="btn btn-pr btn-full" onclick="doLogin()" style="margin-top:4px">
+        <i class="ti ti-login"></i> Sign In
+      </button>
+      <p class="login-note">Demo: any credentials work. Select your role above.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ APP SHELL ══ -->
+<div id="app-shell" class="app-shell hidden">
+  <div class="sb-overlay" id="sb-overlay" onclick="closeSB()"></div>
+  <aside id="sidebar">
+    <div class="sb-head">
+      <div class="sb-logo">
+        <div class="logo-icon"><i class="ti ti-heart-plus"></i></div>
+        <div><span class="logo-name">SRP Hospital</span><span class="logo-sub">Badgandi</span></div>
+      </div>
+      <button class="sb-close" onclick="closeSB()"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="sb-user">
+      <div class="av av-md c-pr" id="sb-av">AD</div>
+      <div><div class="sb-uname" id="sb-name">Admin</div><div class="sb-urole" id="sb-role">Administrator</div></div>
+      <div class="online-dot"></div>
+    </div>
+    <nav class="sb-nav" id="sb-nav"></nav>
+  </aside>
+
+  <div class="main-wrap">
+    <header class="topbar">
+      <button class="tb-menu" onclick="openSB()"><i class="ti ti-menu-2"></i></button>
+      <div class="tb-title" id="tb-title">Dashboard</div>
+      <div class="tb-actions">
+        <button class="tb-btn" onclick="showPage('search')" title="Search"><i class="ti ti-search"></i></button>
+        <button class="tb-btn" onclick="showPage('notifications')" title="Notifications" style="position:relative">
+          <i class="ti ti-bell"></i><span class="notif-badge">5</span>
         </button>
-        <p class="login-note">Demo: any username/password works. Select your role above.</p>
+        <button class="tb-btn" onclick="window.print()" title="Print"><i class="ti ti-printer"></i></button>
+        <button class="tb-btn" onclick="doLogout()" title="Logout"><i class="ti ti-logout"></i></button>
       </div>
-    </div>
+    </header>
+    <main class="page-content" id="page-content">
+      <div class="page-loading"><div class="spinner"></div><p>Loading...</p></div>
+    </main>
   </div>
+</div>
 
-  <!-- APP SHELL (hidden until login) -->
-  <div id="app-shell" class="app-shell hidden">
+<div id="modal-c"></div>
+<div id="toast-c"></div>
 
-    <!-- SIDEBAR OVERLAY (mobile) -->
-    <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+<script>
+/* ═══════════ DATA ═══════════ */
+const DB = {
+  hospital:{name:"S R Patil Hospital & Research Centre",location:"Badgandi, Karnataka – 591 302",reg:"KAR/HOS/2014/4421",phone:"+91-XXXXX-XXXXX",email:"info@srpatilhospital.in",estd:2014,beds:150,chairman:"Shri S R Patil"},
+  roles:{
+    chairman:{label:"Chairman",          col:"c-ac",pages:["dashboard","updates","announcements","notifications","chairman","purchase","nmc","staff","hiring","dgroup","attendance","payroll","departments","patients","opd","ipd","appointments","lab","pharmacy","billing","finance","inventory","tenders","audit","documents","settings","roles","search"]},
+    ceo:     {label:"CEO / Director",    col:"c-pr",pages:["dashboard","updates","announcements","notifications","chairman","purchase","nmc","staff","hiring","dgroup","attendance","payroll","departments","patients","opd","ipd","appointments","lab","pharmacy","billing","finance","inventory","tenders","audit","documents","settings","roles","search"]},
+    admin:   {label:"Administrator",     col:"c-pr",pages:["dashboard","updates","announcements","notifications","purchase","nmc","staff","hiring","dgroup","attendance","payroll","departments","patients","opd","ipd","appointments","lab","pharmacy","billing","finance","inventory","tenders","audit","documents","settings","search"]},
+    doctor:  {label:"Doctor",            col:"c-su",pages:["dashboard","updates","announcements","notifications","patients","opd","ipd","appointments","lab","search"]},
+    nurse:   {label:"Nurse",             col:"c-in",pages:["dashboard","updates","announcements","notifications","patients","opd","ipd","lab","pharmacy","search"]},
+    hr:      {label:"HR Manager",        col:"c-wa",pages:["dashboard","updates","announcements","notifications","staff","hiring","dgroup","attendance","payroll","search"]},
+    finance: {label:"Finance Officer",   col:"c-da",pages:["dashboard","announcements","notifications","billing","finance","purchase","search"]},
+    reception:{label:"Receptionist",     col:"c-tl",pages:["dashboard","updates","announcements","notifications","patients","opd","appointments","billing","search"]},
+  },
+  staff:[
+    {id:"EMP-001",name:"Dr. Arvind Patel",  role:"Doctor",     dept:"Cardiology",     qual:"MD, DM",       join:"2018-01-12",grade:"A1",status:"active"},
+    {id:"EMP-002",name:"Dr. Sneha Mehta",   role:"Doctor",     dept:"Gynecology",     qual:"MS, DNB",      join:"2019-03-04",grade:"A1",status:"active"},
+    {id:"EMP-003",name:"Dr. Rajan Kumar",   role:"Doctor",     dept:"Surgery",        qual:"MS Surgery",   join:"2020-07-01",grade:"A1",status:"active"},
+    {id:"EMP-004",name:"Dr. Priya Nair",    role:"Doctor",     dept:"Pediatrics",     qual:"MD Pediatrics",join:"2021-02-15",grade:"A2",status:"active"},
+    {id:"EMP-005",name:"Dr. Amit Joshi",    role:"Doctor",     dept:"Orthopedics",    qual:"MS Ortho",     join:"2022-06-10",grade:"A1",status:"active"},
+    {id:"EMP-006",name:"Nirmala Kamble",    role:"Nurse",      dept:"ICU",            qual:"BSc Nursing",  join:"2020-06-06",grade:"B2",status:"active"},
+    {id:"EMP-007",name:"Sunita Patil",      role:"Nurse",      dept:"General Ward",   qual:"GNM",          join:"2021-09-01",grade:"B2",status:"active"},
+    {id:"EMP-008",name:"Ramesh Shirke",     role:"Technician", dept:"Radiology",      qual:"DMRT",         join:"2021-09-10",grade:"C1",status:"active"},
+    {id:"EMP-009",name:"Priya Kulkarni",    role:"Admin",      dept:"Finance",        qual:"BBA",          join:"2022-12-15",grade:"C2",status:"active"},
+    {id:"EMP-010",name:"Vikram Rao",        role:"Pharmacist", dept:"Pharmacy",       qual:"B.Pharm",      join:"2023-06-01",grade:"C1",status:"active"},
+  ],
+  dgroup:[
+    {id:"DG-001",name:"Ramkumar Salve", cat:"Ward Boy",    zone:"General Ward",  shift:"Morning",status:"present"},
+    {id:"DG-002",name:"Laxmi Bai",      cat:"Housekeeping",zone:"OPD Block",     shift:"Morning",status:"present"},
+    {id:"DG-003",name:"Shyam Jadhav",   cat:"Security",    zone:"Main Gate",     shift:"Night",  status:"present"},
+    {id:"DG-004",name:"Rekha More",     cat:"Housekeeping",zone:"ICU Block",     shift:"Morning",status:"absent"},
+    {id:"DG-005",name:"Ganesh Pawar",   cat:"Sweeper",     zone:"Surgical Ward", shift:"Morning",status:"present"},
+    {id:"DG-006",name:"Sunanda Kamble", cat:"Kitchen",     zone:"Canteen",       shift:"Morning",status:"present"},
+    {id:"DG-007",name:"Dilip Wagh",     cat:"Ward Boy",    zone:"Pediatrics",    shift:"Evening",status:"present"},
+    {id:"DG-008",name:"Meena Jadhav",   cat:"Laundry",     zone:"Laundry Dept",  shift:"Morning",status:"leave"},
+    {id:"DG-009",name:"Ravi Kale",      cat:"Security",    zone:"Emergency",     shift:"Night",  status:"present"},
+    {id:"DG-010",name:"Suman Dhole",    cat:"Housekeeping",zone:"Lab Block",     shift:"Morning",status:"present"},
+  ],
+  patients:[
+    {uhid:"UH-10241",name:"Ramabai Jadhav",age:58,gender:"F",ward:"General Ward", doctor:"Dr. Patel", admit:"2025-06-10",status:"admitted",blood:"O+"},
+    {uhid:"UH-10242",name:"Suresh Nikam",  age:42,gender:"M",ward:"ICU",           doctor:"Dr. Mehta",  admit:"2025-06-11",status:"critical",blood:"B+"},
+    {uhid:"UH-10243",name:"Priya Sharma",  age:26,gender:"F",ward:"Maternity",     doctor:"Dr. Kumar",  admit:"2025-06-12",status:"admitted",blood:"A+"},
+    {uhid:"UH-10244",name:"Mohan Desai",   age:65,gender:"M",ward:"—",             doctor:"Dr. Patel",  admit:"—",         status:"opd",     blood:"AB+"},
+    {uhid:"UH-10245",name:"Kavita Shinde", age:34,gender:"F",ward:"Orthopedics",   doctor:"Dr. Joshi",  admit:"2025-06-09",status:"admitted",blood:"O-"},
+  ],
+  pos:[
+    {id:"PO-1045",date:"2025-06-10",vendor:"Meditech Supplies",  dept:"Lab",         items:5, amount:124000,status:"pending",  by:"—"},
+    {id:"PO-1044",date:"2025-06-08",vendor:"PharmaDist Ltd",     dept:"Pharmacy",    items:12,amount:68500, status:"approved", by:"Chairman"},
+    {id:"PO-1043",date:"2025-06-05",vendor:"LifeCare Equipment", dept:"OT",          items:3, amount:342000,status:"approved", by:"Chairman"},
+    {id:"PO-1042",date:"2025-06-04",vendor:"SurgMed India",      dept:"Surgery",     items:8, amount:89750, status:"delivered",by:"Admin"},
+    {id:"PO-1041",date:"2025-06-02",vendor:"CleanChem Corp",     dept:"Housekeeping",items:6, amount:22400, status:"rejected", by:"Finance"},
+    {id:"PO-1040",date:"2025-05-30",vendor:"Alpha Medical",      dept:"ICU",         items:4, amount:185000,status:"delivered",by:"Chairman"},
+  ],
+  licenses:[
+    {name:"Hospital Registration", auth:"State Health Dept.",no:"KAR/HOS/4421",issue:"2023-04-01",expiry:"2026-03-31",resp:"CEO",            status:"active"},
+    {name:"NMC Accreditation",     auth:"NMC India",         no:"NMC/2022/8931",issue:"2022-01-15",expiry:"2026-01-14",resp:"Med. Supt.",     status:"pending"},
+    {name:"Fire NOC",              auth:"Fire Department",   no:"FIRE/KAR/0892",issue:"2022-12-01",expiry:"2024-11-30",resp:"Admin Officer",  status:"expired"},
+    {name:"Blood Bank License",    auth:"DCGI",              no:"BB/KAR/214",   issue:"2023-09-01",expiry:"2026-08-31",resp:"Blood Bank Off.",status:"active"},
+    {name:"Pharmacy License",      auth:"State Pharmacy",   no:"PH/KAR/8821",  issue:"2023-06-01",expiry:"2026-05-31",resp:"Chief Pharmacist",status:"active"},
+    {name:"Bio-Medical Waste",     auth:"KSPCB",             no:"BMW/2022/441", issue:"2022-08-15",expiry:"2025-08-14",resp:"Infect. Control",status:"pending"},
+    {name:"CT Scan AERB",         auth:"AERB",              no:"AERB/CT/1124", issue:"2024-02-01",expiry:"2027-01-31",resp:"Radiology Head", status:"active"},
+    {name:"Clinical Lab NABL",    auth:"NABL",              no:"NABL/MC/2248", issue:"2023-11-01",expiry:"2026-10-31",resp:"Lab Head",        status:"active"},
+  ],
+  hiring:[
+    {id:"JO-001",post:"Lab Technician",  dept:"Pathology",   type:"Full Time",apps:7, status:"open"},
+    {id:"JO-002",post:"Staff Nurse",      dept:"General Ward",type:"Full Time",apps:4, status:"open"},
+    {id:"JO-003",post:"Housekeeping",     dept:"D Group",     type:"Contract", apps:3, status:"open"},
+    {id:"JO-004",post:"Radiologist",      dept:"Radiology",   type:"Full Time",apps:2, status:"review"},
+    {id:"JO-005",post:"Billing Executive",dept:"Finance",     type:"Full Time",apps:2, status:"review"},
+  ],
+  applications:[
+    {name:"Mahesh Kumar", post:"Lab Technician",exp:"3 yrs",applied:"2025-06-09",stage:"shortlisted"},
+    {name:"Sunita Patil", post:"Staff Nurse",   exp:"5 yrs",applied:"2025-06-07",stage:"interview"},
+    {name:"Rajesh Nair",  post:"Radiologist",   exp:"8 yrs",applied:"2025-06-01",stage:"review"},
+    {name:"Pooja Joshi",  post:"Staff Nurse",   exp:"2 yrs",applied:"2025-06-01",stage:"rejected"},
+  ],
+  announcements:[
+    {title:"ICU Maintenance Alert",           type:"urgent",  author:"Admin",    date:"2025-06-12",body:"Bed no. 7 in ICU under maintenance. Route new admissions to beds 1–6 and 8–10 until further notice."},
+    {title:"New Lab Equipment Installed",      type:"success", author:"Lab Head", date:"2025-06-12",body:"Hematology analyzer BC-6900 installed successfully. Training session tomorrow 9 AM."},
+    {title:"Monthly Staff Meeting Reminder",  type:"info",    author:"HR Dept",  date:"2025-06-11",body:"All-hands meeting on 15th at 10:00 AM, Conference Hall. HODs to prepare unit reports."},
+    {title:"Pharmacy Stock Alert",             type:"warning", author:"Pharmacy", date:"2025-06-11",body:"Amoxicillin 500mg critically low (28 strips). PO raised, delivery in 3 days."},
+    {title:"OPD Renovation Notice",            type:"info",    author:"Admin",    date:"2025-06-10",body:"OPD block B renovation begins Monday. Use block A temporarily for 2 weeks."},
+  ],
+  directives:[
+    {date:"2025-06-12",text:"All HODs to submit monthly performance report by 20th of each month.",to:"All HODs"},
+    {date:"2025-06-05",text:"NMC accreditation renewal to be prioritised. CEO to personally supervise.",to:"CEO"},
+    {date:"2025-05-28",text:"OPD expansion wing tender to be floated by 15 June 2025.",to:"Admin, Finance"},
+    {date:"2025-05-15",text:"Salary revision for D Group staff effective 1 July 2025. HR to prepare breakup.",to:"HR Manager"},
+    {date:"2025-05-02",text:"CCTV coverage to be extended to all wards and parking. Get 3 quotations by 20 May.",to:"Admin"},
+  ],
+  billing:[
+    {id:"B-5421",patient:"Ramabai Jadhav",uhid:"UH-10241",date:"2025-06-12",services:"Admission + Lab + Meds",  amount:24800,paid:20000,status:"partial"},
+    {id:"B-5420",patient:"Mohan Desai",   uhid:"UH-10244",date:"2025-06-12",services:"OPD + Medicines",          amount:1200, paid:1200, status:"paid"},
+    {id:"B-5419",patient:"Deepa Rao",     uhid:"—",       date:"2025-06-11",services:"Surgery + Anesthesia",     amount:78000,paid:78000,status:"paid"},
+    {id:"B-5418",patient:"Suresh Nikam",  uhid:"UH-10242",date:"2025-06-11",services:"ICU Charges + Labs",       amount:42500,paid:0,    status:"unpaid"},
+  ],
+  inventory:[
+    {name:"Amoxicillin 500mg",      cat:"Pharmacy",    stock:28,  unit:"Strips",  min:100, status:"critical"},
+    {name:"Surgical Gloves (M)",    cat:"OT Supplies", stock:12,  unit:"Boxes",   min:50,  status:"low"},
+    {name:"IV Cannula 18G",         cat:"ICU Supplies",stock:0,   unit:"Pcs",     min:200, status:"out"},
+    {name:"Paracetamol 500mg",      cat:"Pharmacy",    stock:450, unit:"Strips",  min:100, status:"ok"},
+    {name:"Oxygen Cylinder",        cat:"ICU Supplies",stock:14,  unit:"Cylinders",min:10, status:"ok"},
+    {name:"Disposable Syringes 5ml",cat:"OT Supplies", stock:200, unit:"Pcs",     min:500, status:"low"},
+  ],
+  grades:[
+    {grade:"A1",role:"Senior Doctor / Specialist",basic:90000, hra:18000,allow:12000},
+    {grade:"A2",role:"Junior Doctor / MO",         basic:60000, hra:12000,allow:8000},
+    {grade:"B1",role:"Senior Nurse / HOD Nurse",   basic:35000, hra:7000, allow:5000},
+    {grade:"B2",role:"Staff Nurse",                basic:22000, hra:4400, allow:3000},
+    {grade:"C1",role:"Senior Technician",          basic:25000, hra:5000, allow:3500},
+    {grade:"C2",role:"Admin / Billing Staff",      basic:18000, hra:3600, allow:2500},
+    {grade:"D1",role:"D Group — Ward Boy/Security",basic:12000, hra:2400, allow:1500},
+    {grade:"D2",role:"D Group — Housekeeping",     basic:10000, hra:2000, allow:1200},
+  ],
+  departments:[
+    {name:"Cardiology",       icon:"ti-heart-rate-monitor",bg:"#dce8f8",tc:"#1a3a5c",doc:3,nur:6, pm:18},
+    {name:"General Surgery",  icon:"ti-scalpel",           bg:"#d6f0e4",tc:"#1a7a4a",doc:5,nur:8, pm:24},
+    {name:"Gynecology & OBG", icon:"ti-baby-carriage",     bg:"#fcefd6",tc:"#c87a00",doc:4,nur:7, pm:31},
+    {name:"ICU / ICCU",       icon:"ti-activity",          bg:"#fce0e0",tc:"#b83232",doc:4,nur:10,pm:8},
+    {name:"Pathology / Lab",  icon:"ti-microscope",        bg:"#dce8f8",tc:"#1a3a5c",doc:2,nur:0, pm:284},
+    {name:"Radiology",        icon:"ti-scan",              bg:"#ede9f6",tc:"#6b3fa0",doc:2,nur:0, pm:92},
+    {name:"Pediatrics",       icon:"ti-baby",              bg:"#d6f0e4",tc:"#1a7a4a",doc:2,nur:4, pm:40},
+    {name:"Orthopedics",      icon:"ti-bone",              bg:"#fcefd6",tc:"#c87a00",doc:2,nur:4, pm:15},
+    {name:"Pharmacy",         icon:"ti-pill",              bg:"#dce8f8",tc:"#1a3a5c",doc:0,nur:0, pm:1240},
+  ],
+  auditLog:[
+    {time:"12 Jun, 11:47 AM",user:"Admin",      action:"PO-1044 approved by Chairman"},
+    {time:"12 Jun, 10:30 AM",user:"HR Manager", action:"Job offer sent to Lab Technician applicant"},
+    {time:"12 Jun, 09:05 AM",user:"Finance",    action:"Monthly payroll batch initiated — 213 employees"},
+    {time:"11 Jun, 06:15 PM",user:"Reception",  action:"New patient registered (UHID: UH-10243)"},
+    {time:"11 Jun, 04:00 PM",user:"Pharmacy",   action:"Stock alert raised — Amoxicillin 500mg"},
+    {time:"10 Jun, 11:00 AM",user:"Chairman",   action:"Directive added: HOD monthly report submission"},
+  ],
+  tenders:[
+    {id:"TND-001",title:"Housekeeping Services Contract",    floated:"2025-05-01",deadline:"2025-06-15",bids:4,status:"evaluation",value:600000},
+    {id:"TND-002",title:"Annual Drug & Pharma Supply",       floated:"2025-04-15",deadline:"2025-05-30",bids:6,status:"awarded",   value:4800000},
+    {id:"TND-003",title:"CCTV Installation & Maintenance",   floated:"2025-06-01",deadline:"2025-06-30",bids:2,status:"open",      value:350000},
+    {id:"TND-004",title:"OPD Wing Renovation",               floated:"2025-06-10",deadline:"2025-07-10",bids:0,status:"open",      value:2500000},
+  ],
+  avColor(n){const c=["c-pr","c-ac","c-su","c-in","c-tl","c-pu","c-wa","c-da"];let s=0;for(let x of n)s+=x.charCodeAt(0);return c[s%c.length]},
+  initials(n){return n.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase()},
+  inr(n){if(n>=100000)return"₹"+(n/100000).toFixed(1)+"L";if(n>=1000)return"₹"+(n/1000).toFixed(1)+"K";return"₹"+n.toLocaleString('en-IN')}
+};
 
-    <!-- SIDEBAR -->
-    <aside id="sidebar">
-      <div class="sidebar-header">
-        <div class="sidebar-logo">
-          <div class="logo-icon"><i class="ti ti-heart-plus"></i></div>
-          <div>
-            <span class="logo-name">SRP Hospital</span>
-            <span class="logo-sub">Badgandi</span>
-          </div>
-        </div>
-        <button class="sidebar-close" onclick="closeSidebar()"><i class="ti ti-x"></i></button>
-      </div>
+/* ═══════════ UI HELPERS ═══════════ */
+const U = {
+  toast(msg,type="default",dur=3000){
+    const icons={success:"ti-check",error:"ti-x",warning:"ti-alert-triangle",default:"ti-info-circle"};
+    const t=document.createElement('div');
+    t.className="toast "+(type==="default"?"":type);
+    t.innerHTML=`<i class="ti ${icons[type]||icons.default}"></i> ${msg}`;
+    document.getElementById('toast-c').appendChild(t);
+    setTimeout(()=>t.remove(),dur);
+  },
+  modal(title,body,size=""){
+    let o=document.getElementById('_mo');
+    if(o)o.remove();
+    o=document.createElement('div');
+    o.id="_mo";o.className="mo";
+    o.innerHTML=`<div class="md ${size}" role="dialog"><div class="mh"><h3>${title}</h3><button class="mc-btn" onclick="U.closeModal()">✕</button></div><div class="mb">${body}</div></div>`;
+    o.addEventListener('click',e=>{if(e.target===o)this.closeModal()});
+    document.getElementById('modal-c').appendChild(o);
+    requestAnimationFrame(()=>o.classList.add('open'));
+  },
+  closeModal(){const o=document.getElementById('_mo');if(o)o.remove()},
+  st(s){
+    const m={active:"st-ok",present:"st-ok",paid:"st-ok",approved:"st-ok",delivered:"st-ok",open:"st-ok",admitted:"st-ok",interview:"st-ok",awarded:"st-ok",
+             pending:"st-wa",review:"st-wa",shortlisted:"st-wa",partial:"st-wa",leave:"st-wa",evaluation:"st-wa",
+             inactive:"st-da",absent:"st-da",rejected:"st-da",expired:"st-da",out:"st-da",critical:"st-da",unpaid:"st-da",
+             discharged:"st-in",opd:"st-in"};
+    const l={active:"Active",present:"Present",paid:"Paid",approved:"Approved",delivered:"Delivered",open:"Open",admitted:"Admitted",interview:"Interview",awarded:"Awarded",
+             pending:"Pending",review:"Under Review",shortlisted:"Shortlisted",partial:"Partial",leave:"On Leave",evaluation:"Evaluation",
+             inactive:"Inactive",absent:"Absent",rejected:"Rejected",expired:"Expired",out:"Out of Stock",critical:"Critical",unpaid:"Unpaid",
+             discharged:"Discharged",opd:"OPD"};
+    return `<span class="st ${m[s]||'st-wa'}">${l[s]||s}</span>`;
+  },
+  av(n,sz="av-sm"){return`<div class="av ${sz} ${DB.avColor(n)}">${DB.initials(n)}</div>`},
+  pc(n,sub=""){return`<div class="pc gap8">${this.av(n)}<div><div style="font-size:13px;font-weight:500">${n}</div>${sub?`<div style="font-size:11px;color:var(--t3)">${sub}</div>`:""}</div></div>`},
+  metric(label,val,sub="",type=""){return`<div class="mc ${type}"><div class="ml">${label}</div><div class="mv">${val}</div>${sub?`<div class="ms">${sub}</div>`:""}</div>`},
+  table(headers,rows,empty="No records found"){
+    if(!rows.length)return`<div class="es"><i class="ti ti-database-off"></i><h4>${empty}</h4></div>`;
+    return`<div class="tw"><table><thead><tr>${headers.map(h=>`<th${h.xs?' class="hxs"':''}>` +h.l+'</th>').join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map((c,i)=>`<td${headers[i]?.xs?' class="hxs"':''}>` +c+'</td>').join('')}</tr>`).join('')}</tbody></table></div>`;
+  },
+  prRow(label,v,max,col="pf-pr"){const p=Math.round(v/max*100);return`<div class="mb14"><div class="fb mb8"><span style="font-size:13px">${label}</span><span style="font-size:13px;font-weight:600">${v}/${max}</span></div><div class="pbar"><div class="pfill ${col}" style="width:${p}%"></div></div></div>`},
+  card(title,body,icon=""){return`<div class="card">${title?`<div class="card-title">${icon?`<i class="ti ${icon}"></i>`:""} ${title}</div>`:""} ${body}</div>`},
+  acCard(a){const em={urgent:"🔴",success:"✅",info:"📋",warning:"⚠️"};const tg={urgent:`<span class="tag tg-rd">Urgent</span>`,success:`<span class="tag tg-gr">Update</span>`,info:`<span class="tag tg-bl">Info</span>`,warning:`<span class="tag tg-am">Alert</span>`};return`<div class="ac-card ${a.type}"><div class="ac-title">${em[a.type]||""} ${a.title}</div><div class="ac-meta"><span>${a.author}</span><span>${a.date}</span>${tg[a.type]||""}</div><div class="ac-body">${a.body}</div></div>`},
+  ai(icon,col,title,sub,action=""){return`<div class="ai"><div class="ai-icon ${col}"><i class="ti ${icon}"></i></div><div class="ai-body"><p>${title}</p><span>${sub}</span></div>${action}</div>`},
+  tlItem(date,text){return`<div class="tl-item"><div class="tl-date">${date}</div><div class="tl-text">${text}</div></div>`},
+  fg(label,input){return`<div class="fg"><label>${label}</label>${input}</div>`},
+  inp(name,type="text",ph="",val=""){return`<input type="${type}" name="${name}" placeholder="${ph}" value="${val}">`},
+  sel(name,opts){return`<select name="${name}">${opts.map(o=>`<option>${o}</option>`).join("")}</select>`},
+  ta(name,ph,rows=3){return`<textarea name="${name}" rows="${rows}" placeholder="${ph}"></textarea>`},
+  ph(title,sub,actions=""){document.getElementById('tb-title').textContent=title;return`<div class="ph"><div><h2>${title}</h2>${sub?`<p>${sub}</p>`:""}</div>${actions?`<div class="ph-r">${actions}</div>`:""}</div>`}
+};
 
-      <div class="sidebar-user">
-        <div class="avatar avatar-md" id="sidebar-avatar">AD</div>
-        <div>
-          <div class="sidebar-user-name" id="sidebar-name">Admin</div>
-          <div class="sidebar-user-role" id="sidebar-role">Administrator</div>
-        </div>
-        <div class="online-dot"></div>
-      </div>
+/* ═══════════ NAVIGATION ═══════════ */
+const NAV=[
+  {lbl:"Overview",items:[
+    {id:"dashboard",icon:"ti-layout-dashboard",label:"Dashboard"},
+    {id:"updates",  icon:"ti-calendar-event",  label:"Daily Updates",  badge:"3",bc:"nb-red"},
+    {id:"announcements",icon:"ti-speakerphone", label:"Announcements"},
+    {id:"notifications",icon:"ti-bell",         label:"Notifications",  badge:"5",bc:"nb-red"},
+  ]},
+  {lbl:"Staff & HR",items:[
+    {id:"staff",      icon:"ti-users",     label:"All Staff"},
+    {id:"hiring",     icon:"ti-user-plus", label:"Hiring & Recruitment",badge:"5",bc:"nb-green"},
+    {id:"dgroup",     icon:"ti-tool",      label:"D Group Staff"},
+    {id:"attendance", icon:"ti-clock",     label:"Attendance"},
+    {id:"payroll",    icon:"ti-cash",      label:"Payroll"},
+  ]},
+  {lbl:"Administration",items:[
+    {id:"chairman",    icon:"ti-crown",             label:"Chairman's Office"},
+    {id:"purchase",    icon:"ti-file-invoice",      label:"Purchase Orders",badge:"6",bc:"nb-amber"},
+    {id:"nmc",         icon:"ti-certificate",       label:"NMC & Licenses", badge:"1",bc:"nb-red"},
+    {id:"tenders",     icon:"ti-file-text",         label:"Tenders"},
+    {id:"departments", icon:"ti-building-hospital", label:"Departments"},
+    {id:"inventory",   icon:"ti-package",           label:"Inventory"},
+  ]},
+  {lbl:"Patient Services",items:[
+    {id:"patients",     icon:"ti-user-heart",    label:"Patients"},
+    {id:"opd",          icon:"ti-stethoscope",   label:"OPD"},
+    {id:"ipd",          icon:"ti-bed",           label:"IPD / Wards"},
+    {id:"appointments", icon:"ti-calendar-check",label:"Appointments"},
+    {id:"lab",          icon:"ti-microscope",    label:"Laboratory"},
+    {id:"pharmacy",     icon:"ti-pill",          label:"Pharmacy"},
+  ]},
+  {lbl:"Finance",items:[
+    {id:"billing", icon:"ti-receipt",   label:"Billing"},
+    {id:"finance", icon:"ti-chart-bar", label:"Finance Reports"},
+  ]},
+  {lbl:"Compliance",items:[
+    {id:"audit",     icon:"ti-clipboard-check",label:"Audit Logs"},
+    {id:"documents", icon:"ti-folder",          label:"Documents"},
+  ]},
+  {lbl:"System",items:[
+    {id:"settings",icon:"ti-settings",label:"Settings"},
+    {id:"roles",   icon:"ti-lock",    label:"Roles & Access"},
+  ]},
+];
 
-      <nav class="sidebar-nav" id="sidebar-nav">
-        <!-- Dynamically built by js/nav.js based on role -->
-      </nav>
-    </aside>
+function buildNav(role){
+  const allowed=DB.roles[role]?.pages||[];
+  const nav=document.getElementById('sb-nav');
+  nav.innerHTML="";
+  NAV.forEach(sec=>{
+    const vis=sec.items.filter(i=>allowed.includes(i.id));
+    if(!vis.length)return;
+    const d=document.createElement('div');
+    d.className="nav-sec";
+    d.innerHTML=`<div class="nav-lbl">${sec.lbl}</div>`;
+    vis.forEach(item=>{
+      const b=document.createElement('button');
+      b.className="nav-item";b.dataset.pid=item.id;
+      b.innerHTML=`<i class="ti ${item.icon}"></i>${item.label}${item.badge?`<span class="nav-badge ${item.bc||''}">${item.badge}</span>`:""}`;
+      b.onclick=()=>{closeSB();showPage(item.id)};
+      d.appendChild(b);
+    });
+    nav.appendChild(d);
+  });
+}
+function setActiveNav(pid){document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.pid===pid))}
+function openSB(){document.getElementById('sidebar').classList.add('open');document.getElementById('sb-overlay').classList.add('open');document.body.style.overflow='hidden'}
+function closeSB(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('open');document.body.style.overflow=''}
 
-    <!-- MAIN AREA -->
-    <div class="main-wrap">
+/* ═══════════ PAGE ROUTER ═══════════ */
+const P={};
 
-      <!-- TOP BAR -->
-      <header class="topbar">
-        <button class="topbar-menu-btn" onclick="openSidebar()"><i class="ti ti-menu-2"></i></button>
-        <div class="topbar-title" id="topbar-title">Dashboard</div>
-        <div class="topbar-actions">
-          <button class="topbar-btn" onclick="App.showPage('search')" title="Search"><i class="ti ti-search"></i></button>
-          <button class="topbar-btn notif-btn" onclick="App.showPage('notifications')" title="Notifications">
-            <i class="ti ti-bell"></i>
-            <span class="notif-badge" id="notif-count">5</span>
-          </button>
-          <button class="topbar-btn" onclick="window.print()" title="Print"><i class="ti ti-printer"></i></button>
-          <button class="topbar-btn" onclick="doLogout()" title="Logout"><i class="ti ti-logout"></i></button>
-        </div>
-      </header>
-
-      <!-- PAGE CONTENT -->
-      <main class="page-content" id="page-content">
-        <!-- Pages loaded dynamically by js/router.js -->
-        <div id="page-loading" class="page-loading">
-          <div class="spinner"></div>
-          <p>Loading...</p>
-        </div>
-      </main>
-
-    </div>
+P.dashboard=function(){
+  const today=new Date().toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  const pendPO=DB.pos.filter(p=>p.status==='pending').length;
+  const expLic=DB.licenses.filter(l=>l.status==='expired').length;
+  return U.ph('Dashboard',today,`<button class="btn btn-ol" onclick="showPage('updates')"><i class="ti ti-plus"></i> Daily Update</button><button class="btn btn-pr" onclick="showPage('patients')"><i class="ti ti-user-plus"></i> New Patient</button>`)+
+  `<div class="mg">
+    ${U.metric('Today OPD','148','↑ 12 from yesterday')}
+    ${U.metric('Beds Occupied','74/90','82% occupancy','ac')}
+    ${U.metric('Staff Present','198/213','93% attendance','su')}
+    ${U.metric('Pending POs',pendPO,'Awaiting approval','da')}
+    ${U.metric('Monthly Revenue','₹42.6L','↑ 11.8% vs last month','wa')}
   </div>
+  <div class="g2">
+    ${U.card('Today\'s Activity',
+      U.ai('ti-user-check','ai-bl','Dr. Patel marked attendance — Cardiology','8:02 AM')+
+      U.ai('ti-file-invoice','ai-gr','PO-1042 approved by Chairman','9:14 AM')+
+      U.ai('ti-user-plus','ai-am','New hire offer sent — Lab Technician','10:30 AM')+
+      U.ai('ti-alert-circle','ai-rd','ICU bed 7 flagged — maintenance required','11:05 AM')+
+      U.ai('ti-microscope','ai-bl','Lab batch processed — 24 samples','11:45 AM'),
+    'ti-activity')}
+    ${U.card('NMC & License Status',
+      U.table(
+        [{l:'License'},{l:'Expiry'},{l:'Status',xs:false}],
+        DB.licenses.slice(0,6).map(l=>[l.name,l.expiry,U.st(l.status)])
+      )+`<button class="btn btn-ol btn-full mt12" onclick="showPage('nmc')"><i class="ti ti-external-link"></i> Manage All Licenses</button>`,
+    'ti-certificate')}
+  </div>
+  <div class="g2 mt16">
+    ${U.card('Ward Occupancy',
+      U.prRow('General Ward',34,40,'pf-pr')+U.prRow('ICU / ICCU',8,10,'pf-da')+U.prRow('Maternity',12,20,'pf-ac')+U.prRow('Pediatrics',10,15,'pf-su')+U.prRow('Orthopedics',10,15,'pf-wa'),
+    'ti-building-hospital')}
+    ${U.card('Recent Purchase Orders',
+      U.table([{l:'PO No.'},{l:'Vendor'},{l:'Amount',xs:true},{l:'Status'}],
+        DB.pos.slice(0,5).map(p=>[`<strong>${p.id}</strong>`,p.vendor,DB.inr(p.amount),U.st(p.status)])
+      )+`<button class="btn btn-ol btn-full mt12" onclick="showPage('purchase')"><i class="ti ti-external-link"></i> View All POs</button>`,
+    'ti-file-invoice')}
+  </div>
+  ${expLic?`<div class="ac-card urgent mt16"><div class="ac-title">🚨 ACTION REQUIRED — ${expLic} License(s) Expired!</div><div class="ac-body">${DB.licenses.filter(l=>l.status==='expired').map(l=>`<strong>${l.name}</strong> expired ${l.expiry}`).join(', ')}.<button class="btn btn-da btn-sm" onclick="showPage('nmc')" style="margin-left:12px">View Licenses</button></div></div>`:''}`;
+};
 
-  <!-- MODAL CONTAINER -->
-  <div id="modal-container"></div>
+P.updates=function(){
+  return U.ph('Daily Updates','Hospital-wide operational updates',`<button class="btn btn-pr" onclick="openUpdateModal()"><i class="ti ti-plus"></i> Post Update</button>`)+
+  DB.announcements.map(a=>U.acCard(a)).join('');
+};
 
-  <!-- TOAST CONTAINER -->
-  <div id="toast-container"></div>
+P.announcements=function(){
+  return U.ph('Announcements','Official hospital announcements & circulars',`<button class="btn btn-pr" onclick="openUpdateModal()"><i class="ti ti-plus"></i> Post Announcement</button>`)+
+  DB.announcements.map(a=>U.acCard(a)).join('');
+};
 
-  <!-- SCRIPTS -->
-  <script src="js/data.js"></script>
-  <script src="js/nav.js"></script>
-  <script src="js/components.js"></script>
-  <script src="js/router.js"></script>
-  <script src="js/app.js"></script>
+P.notifications=function(){
+  return U.ph('Notifications','5 unread notifications')+
+  U.card('',
+    U.ai('ti-alert-triangle','ai-rd','Fire NOC expired — urgent renewal needed','2 days overdue',`<button class="btn btn-da btn-sm" onclick="showPage('nmc')" style="margin-left:auto;flex-shrink:0">Fix</button>`)+
+    U.ai('ti-certificate','ai-am','NMC Accreditation renewal due in 30 days','Expires Jan 2026',`<button class="btn btn-ol btn-sm" onclick="showPage('nmc')" style="margin-left:auto;flex-shrink:0">View</button>`)+
+    U.ai('ti-file-invoice','ai-am','8 Purchase Orders awaiting approval','Oldest: 5 days ago',`<button class="btn btn-ol btn-sm" onclick="showPage('purchase')" style="margin-left:auto;flex-shrink:0">View</button>`)+
+    U.ai('ti-user-plus','ai-bl','5 new hiring applications received','Today',`<button class="btn btn-ol btn-sm" onclick="showPage('hiring')" style="margin-left:auto;flex-shrink:0">View</button>`)+
+    U.ai('ti-package','ai-rd','IV Cannula 18G — Out of stock','Raise urgent PO',`<button class="btn btn-da btn-sm" onclick="showPage('inventory')" style="margin-left:auto;flex-shrink:0">PO</button>`)
+  );
+};
+
+P.search=function(){
+  return U.ph('Search','Search across patients, staff, POs and documents')+
+  U.card('',`<div class="sbar" style="max-width:100%;margin-bottom:20px"><i class="ti ti-search"></i><input placeholder="Search patients, staff, POs, licenses..." style="font-size:15px" autofocus oninput="doSearch(this.value)"></div><div id="search-res"><div class="es"><i class="ti ti-search"></i><h4>Type to search</h4><p>Search across all modules</p></div></div>`);
+};
+
+P.staff=function(){
+  return U.ph('All Staff','Doctors, Nurses, Technicians & Admin',`<button class="btn btn-ol"><i class="ti ti-download"></i> Export</button><button class="btn btn-pr" onclick="openAddStaffModal()"><i class="ti ti-plus"></i> Add Staff</button>`)+
+  `<div class="mg">
+    ${U.metric('Total Staff',DB.staff.length+DB.dgroup.length)}
+    ${U.metric('Doctors',DB.staff.filter(s=>s.role==='Doctor').length,'','su')}
+    ${U.metric('Nurses',DB.staff.filter(s=>s.role==='Nurse').length,'','ac')}
+    ${U.metric('Technicians',DB.staff.filter(s=>s.role==='Technician'||s.role==='Pharmacist').length,'','wa')}
+  </div>`+
+  U.card('Staff Register',
+    `<div class="frow"><div class="sbar" style="flex:1;max-width:300px"><i class="ti ti-search"></i><input placeholder="Search name or dept..." oninput="filterStaff(this.value)"></div><select onchange="filterStaff('')"><option>All Roles</option><option>Doctor</option><option>Nurse</option><option>Technician</option><option>Admin</option></select></div><div id="staff-tbl">`+staffTable(DB.staff)+`</div>`,
+  'ti-users');
+};
+
+function staffTable(data){
+  return U.table([{l:'ID'},{l:'Name'},{l:'Role',xs:true},{l:'Department',xs:true},{l:'Join Date',xs:true},{l:'Grade'},{l:'Status'}],
+    data.map(s=>[s.id,U.pc(s.name),`<span class="tag tg-bl">${s.role}</span>`,s.dept,s.join,`<span class="tag tg-gy">${s.grade}</span>`,U.st(s.status)])
+  );
+}
+function filterStaff(q){
+  const f=DB.staff.filter(s=>!q||s.name.toLowerCase().includes(q.toLowerCase())||s.dept.toLowerCase().includes(q.toLowerCase()));
+  const el=document.getElementById('staff-tbl');if(el)el.innerHTML=staffTable(f);
+}
+
+P.dgroup=function(){
+  const pr=DB.dgroup.filter(d=>d.status==='present').length;
+  const ab=DB.dgroup.filter(d=>d.status==='absent').length;
+  const lv=DB.dgroup.filter(d=>d.status==='leave').length;
+  return U.ph('D Group Staff','Housekeeping, Security, Ward Boys & Support',`<button class="btn btn-pr" onclick="openDGroupModal()"><i class="ti ti-plus"></i> Add D Group Staff</button>`)+
+  `<div class="mg">${U.metric('Total D Group',DB.dgroup.length)}${U.metric('Present',pr,Math.round(pr/DB.dgroup.length*100)+'%','su')}${U.metric('On Leave',lv,'','wa')}${U.metric('Absent',ab,'','da')}</div>`+
+  U.card('D Group Register',
+    `<div class="frow"><div class="sbar" style="flex:1;max-width:280px"><i class="ti ti-search"></i><input placeholder="Search..."></div><select><option>All Categories</option><option>Ward Boy</option><option>Housekeeping</option><option>Security</option><option>Sweeper</option><option>Kitchen</option></select></div>`+
+    U.table([{l:'ID'},{l:'Name'},{l:'Category'},{l:'Zone',xs:true},{l:'Shift',xs:true},{l:'Status'},{l:'Action'}],
+      DB.dgroup.map(d=>[d.id,U.pc(d.name),`<span class="tag tg-am">${d.cat}</span>`,d.zone,d.shift,U.st(d.status),`<button class="btn btn-ol btn-sm">View</button>`])
+    ),
+  'ti-users');
+};
+
+P.chairman=function(){
+  const pend=DB.pos.filter(p=>p.status==='pending');
+  return U.ph("Chairman's Office",'Executive directives, approvals & correspondence',`<button class="btn btn-pr" onclick="openDirectiveModal()"><i class="ti ti-plus"></i> Add Directive</button>`)+
+  `<div class="g2">
+    ${U.card('',`<div class="fc gap12 mb16"><div class="av av-xl c-pr"><i class="ti ti-crown" style="font-size:26px"></i></div><div><div style="font-size:18px;font-weight:700">${DB.hospital.chairman}</div><div class="tm">Chairman & Managing Trustee</div><div style="font-size:12px;color:var(--t3)">${DB.hospital.name}</div></div></div><hr class="dv"><div style="display:flex;flex-direction:column;gap:9px"><div class="fb"><span class="tm">Contact</span><span style="font-size:13px">${DB.hospital.phone}</span></div><div class="fb"><span class="tm">Office Hours</span><span style="font-size:13px">Mon–Sat, 10 AM – 2 PM</span></div><div class="fb"><span class="tm">Secretary</span><span style="font-size:13px">Mrs. Kavita Desai</span></div><div class="fb"><span class="tm">Est.</span><span style="font-size:13px">${DB.hospital.estd}</span></div></div>`)}
+    ${U.card(`Pending Approvals (${pend.length})`,
+      pend.map(p=>U.ai('ti-file-invoice','ai-am',`${p.id} — ${DB.inr(p.amount)} (${p.vendor})`,`${p.dept} • ${p.date}`,`<button class="btn btn-su btn-sm" style="flex-shrink:0;margin-left:auto" onclick="approvePO('${p.id}')">Approve</button>`)).join('')||'<p class="tm">No pending approvals</p>',
+    'ti-clipboard-check')}
+  </div>`+
+  U.card('Chairman Directives',`<div class="tl">${DB.directives.map(d=>U.tlItem(`${d.date} — To: ${d.to}`,`<strong>Directive:</strong> ${d.text}`)).join('')}</div>`,'ti-message');
+};
+
+function approvePO(id){const p=DB.pos.find(x=>x.id===id);if(p){p.status='approved';p.by='Chairman';}U.toast(`${id} approved!`,'success');showPage('chairman')}
+
+P.purchase=function(){
+  const pend=DB.pos.filter(p=>p.status==='pending').length;
+  const appr=DB.pos.filter(p=>p.status==='approved').length;
+  const delv=DB.pos.filter(p=>p.status==='delivered').length;
+  const rejt=DB.pos.filter(p=>p.status==='rejected').length;
+  return U.ph('Purchase Orders','Procurement, vendors & approval workflow',`<button class="btn btn-pr" onclick="openPOModal()"><i class="ti ti-plus"></i> Create PO</button>`)+
+  `<div class="mg">${U.metric('Total POs',DB.pos.length)}${U.metric('Pending',pend,'','wa')}${U.metric('Approved',appr,'','su')}${U.metric('Delivered',delv,'','in')}${U.metric('Rejected',rejt,'','da')}</div>`+
+  U.card('Purchase Order Register',
+    `<div class="frow"><div class="sbar" style="flex:1;max-width:280px"><i class="ti ti-search"></i><input placeholder="Search PO or vendor..."></div></div>`+
+    U.table([{l:'PO No.'},{l:'Date',xs:true},{l:'Vendor'},{l:'Dept',xs:true},{l:'Amount'},{l:'Status'},{l:'By',xs:true},{l:'Action'}],
+      DB.pos.map(p=>[`<strong>${p.id}</strong>`,p.date,p.vendor,p.dept,DB.inr(p.amount),U.st(p.status),p.by,
+        `<div style="display:flex;gap:5px"><button class="btn btn-ol btn-sm">View</button>${p.status==='pending'?`<button class="btn btn-su btn-sm" onclick="approvePO('${p.id}')">Approve</button>`:''}</div>`])
+    ),
+  'ti-file-invoice');
+};
+
+P.nmc=function(){
+  const act=DB.licenses.filter(l=>l.status==='active').length;
+  const pnd=DB.licenses.filter(l=>l.status==='pending').length;
+  const exp=DB.licenses.filter(l=>l.status==='expired').length;
+  return U.ph('NMC & Licenses','Regulatory compliance & renewal tracking',`<button class="btn btn-pr" onclick="openLicenseModal()"><i class="ti ti-plus"></i> Add License</button>`)+
+  `<div class="mg">${U.metric('Active',act,'','su')}${U.metric('Renew Soon',pnd,'Within 90 days','wa')}${U.metric('Expired',exp,'Urgent action','da')}${U.metric('NMC Score','82%','Last audit: Mar 2025')}</div>`+
+  (exp?`<div class="ac-card urgent mb12"><div class="ac-title">🚨 URGENT: ${exp} License(s) Expired</div><div class="ac-body">${DB.licenses.filter(l=>l.status==='expired').map(l=>`<strong>${l.name}</strong> (No: ${l.no}) — expired ${l.expiry}`).join('. ')}</div></div>`:'')+
+  U.card('License Register',
+    U.table([{l:'License'},{l:'Authority',xs:true},{l:'No.',xs:true},{l:'Expiry'},{l:'Responsible',xs:true},{l:'Status'},{l:'Action'}],
+      DB.licenses.map(l=>[`<strong>${l.name}</strong>`,l.auth,l.no,l.expiry,l.resp,U.st(l.status),
+        l.status==='expired'?`<button class="btn btn-da btn-sm">Urgent Renew</button>`:
+        l.status==='pending'?`<button class="btn btn-ac btn-sm">Renew</button>`:`<button class="btn btn-ol btn-sm">View</button>`])
+    ),
+  'ti-certificate');
+};
+
+P.hiring=function(){
+  return U.ph('Hiring & Recruitment','Job openings, applications & onboarding',`<button class="btn btn-pr" onclick="openJobModal()"><i class="ti ti-plus"></i> Post Job</button>`)+
+  `<div class="mg">${U.metric('Open Positions',DB.hiring.filter(h=>h.status==='open').length,'','su')}${U.metric('Applications',DB.applications.length)}${U.metric('Interviews',2,'','in')}${U.metric('Under Review',DB.hiring.filter(h=>h.status==='review').length,'','wa')}</div>`+
+  `<div class="card"><div class="tabs" id="hiring-tabs">
+    <button class="tab active" data-tp="h-open">Openings (${DB.hiring.length})</button>
+    <button class="tab" data-tp="h-apps">Applications (${DB.applications.length})</button>
+    <button class="tab" data-tp="h-iv">Interviews</button>
+    <button class="tab" data-tp="h-ob">Onboarding</button>
+  </div>
+  <div id="h-open" class="tab-panel active">${U.table([{l:'Post'},{l:'Department'},{l:'Type',xs:true},{l:'Apps'},{l:'Status'},{l:'Action'}],DB.hiring.map(j=>[`<strong>${j.post}</strong>`,j.dept,`<span class="tag tg-bl">${j.type}</span>`,j.apps,U.st(j.status),`<button class="btn btn-ol btn-sm">View</button>`]))}</div>
+  <div id="h-apps" class="tab-panel">${U.table([{l:'Applicant'},{l:'Applied For'},{l:'Exp',xs:true},{l:'Applied',xs:true},{l:'Stage'},{l:'Action'}],DB.applications.map(a=>[U.pc(a.name),a.post,a.exp,a.applied,U.st(a.stage),`<button class="btn btn-ol btn-sm">View</button>`]))}</div>
+  <div id="h-iv" class="tab-panel">${U.table([{l:'Candidate'},{l:'Post'},{l:'Date & Time'},{l:'Interviewer',xs:true},{l:'Status'}],[['Sunita Patil','Staff Nurse','15 Jun, 10:00 AM','Dr. Sharma (HoD Nursing)',U.st('interview')],['Mahesh Kumar','Lab Technician','16 Jun, 11:30 AM','Mr. Desai (Lab Head)',U.st('pending')]])}</div>
+  <div id="h-ob" class="tab-panel">${U.table([{l:'Employee'},{l:'Post'},{l:'Joining Date'},{l:'Docs'},{l:'Status'}],[['Vikram Rao','Pharmacist','01 Jun 2025',`<span class="tag tg-gr">Complete</span>`,U.st('active')],['Anita Desai','Ward Nurse','10 Jun 2025',`<span class="tag tg-am">Pending 2</span>`,U.st('pending')]])}</div>
+  </div>`;
+};
+
+P.attendance=function(){
+  return U.ph('Attendance','Daily attendance tracking',`<button class="btn btn-ol"><i class="ti ti-download"></i> Export</button>`)+
+  `<div class="mg">${U.metric('Total',DB.staff.length+DB.dgroup.length)}${U.metric('Present','198','93%','su')}${U.metric('On Leave','9','','wa')}${U.metric('Absent','6','','da')}</div>`+
+  U.card('Today\'s Attendance Log',U.table([{l:'ID'},{l:'Name'},{l:'Role'},{l:'In Time'},{l:'Status'}],[
+    ['EMP-001',U.pc('Dr. Arvind Patel'),'Doctor','8:02 AM',U.st('present')],
+    ['EMP-002',U.pc('Dr. Sneha Mehta'),'Doctor','8:45 AM',U.st('present')],
+    ['EMP-006',U.pc('Nirmala Kamble'),'Nurse','7:30 AM',U.st('present')],
+    ['DG-004',U.pc('Rekha More'),'Housekeeping','—',U.st('absent')],
+    ['DG-008',U.pc('Meena Jadhav'),'Laundry','—',U.st('leave')],
+  ]),'ti-clock');
+};
+
+P.payroll=function(){
+  return U.ph('Payroll','Salary processing & records',`<button class="btn btn-pr" onclick="U.toast('Payroll processed!','success')"><i class="ti ti-cash"></i> Process Payroll</button>`)+
+  `<div class="mg">${U.metric('Monthly Payroll','₹28.4L')}${U.metric('Paid','196','','su')}${U.metric('Pending','17','','wa')}${U.metric('Total Staff',DB.staff.length+DB.dgroup.length)}</div>`+
+  U.card('Salary Grade Structure',U.table([{l:'Grade'},{l:'Role'},{l:'Basic'},{l:'HRA',xs:true},{l:'Allow.',xs:true},{l:'Total CTC'}],
+    DB.grades.map(g=>[`<span class="tag tg-gy">${g.grade}</span>`,g.role,`₹${g.basic.toLocaleString('en-IN')}`,`₹${g.hra.toLocaleString('en-IN')}`,`₹${g.allow.toLocaleString('en-IN')}`,`<strong>₹${(g.basic+g.hra+g.allow).toLocaleString('en-IN')}</strong>`])
+  ),'ti-cash');
+};
+
+P.departments=function(){
+  return U.ph('Departments','Hospital department overview')+
+  `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px">`+
+  DB.departments.map(d=>`<div class="dc"><div class="dc-icon" style="background:${d.bg};color:${d.tc}"><i class="ti ${d.icon}"></i></div><div class="dc-name">${d.name}</div><div class="dc-info">${d.doc>0?d.doc+' Doctor'+(d.doc>1?'s':''):''}${d.nur>0?' · '+d.nur+' Nurse'+(d.nur>1?'s':''):''}</div><div class="dc-stat">${d.pm.toLocaleString()}</div><div class="dc-sl">Patients this month</div></div>`).join('')+`</div>`;
+};
+
+P.patients=function(){
+  const adm=DB.patients.filter(p=>p.status==='admitted'||p.status==='critical').length;
+  return U.ph('Patients','Registration, records & management',`<button class="btn btn-pr" onclick="openPatientModal()"><i class="ti ti-plus"></i> Register Patient</button>`)+
+  `<div class="mg">${U.metric('Total Registered','12,481')}${U.metric('This Month','342','','ac')}${U.metric('Admitted',adm,'','su')}${U.metric('Today OPD','148','','wa')}</div>`+
+  U.card('Patient Register',
+    `<div class="frow"><div class="sbar" style="flex:1;max-width:300px"><i class="ti ti-search"></i><input placeholder="Search UHID, name or phone..."></div></div>`+
+    U.table([{l:'UHID'},{l:'Patient'},{l:'Age/Sex',xs:true},{l:'Ward'},{l:'Doctor',xs:true},{l:'Status'},{l:'Action'}],
+      DB.patients.map(p=>[`<strong>${p.uhid}</strong>`,U.pc(p.name,p.blood),`${p.age}${p.gender}`,p.ward,p.doctor,U.st(p.status),`<button class="btn btn-ol btn-sm">View</button>`])
+    ),'ti-user-heart');
+};
+
+P.opd=function(){
+  return U.ph('OPD','Outpatient consultation management',`<button class="btn btn-pr" onclick="U.toast('Token registered!','success')"><i class="ti ti-plus"></i> Register OPD</button>`)+
+  `<div class="mg">${U.metric('Today','148')}${U.metric('In Queue','12','','wa')}${U.metric('Consulting','8','','su')}${U.metric('Done','128','','in')}</div>`+
+  U.card('OPD Queue',U.table([{l:'Token'},{l:'Patient'},{l:'Age/Sex',xs:true},{l:'Doctor'},{l:'Status'},{l:'Action'}],[
+    ['T-001',U.pc('Mohan Desai'),'65M','Dr. Patel',U.st('approved'),`<button class="btn btn-ol btn-sm">Attend</button>`],
+    ['T-002',U.pc('Rima Shah'),'32F','Dr. Mehta',U.st('active'),`<button class="btn btn-ol btn-sm">Attend</button>`],
+    ['T-003',U.pc('Kiran Patil'),'45M','Dr. Kumar',U.st('pending'),`<button class="btn btn-ol btn-sm">Queue</button>`],
+    ['T-004',U.pc('Baby Ananya'),'3F','Dr. Nair',U.st('pending'),`<button class="btn btn-ol btn-sm">Queue</button>`],
+  ]),'ti-stethoscope');
+};
+
+P.ipd=function(){
+  return U.ph('IPD / Wards','Inpatient management & bed allocation',`<button class="btn btn-pr" onclick="U.toast('Patient admitted!','success')"><i class="ti ti-plus"></i> Admit Patient</button>`)+
+  `<div class="mg">${U.metric('Total Beds',90)}${U.metric('Occupied','74','82%','da')}${U.metric('Available','16','','su')}${U.metric('ICU Beds','8/10','','wa')}</div><div class="g2">`+
+  U.card('Current Inpatients',U.table([{l:'UHID'},{l:'Patient'},{l:'Ward'},{l:'Doctor',xs:true},{l:'Status'}],DB.patients.filter(p=>p.status==='admitted'||p.status==='critical').map(p=>[p.uhid,U.pc(p.name),p.ward,p.doctor,U.st(p.status)])),'ti-bed')+
+  U.card('Ward Occupancy',U.prRow('General Ward',34,40,'pf-pr')+U.prRow('ICU',8,10,'pf-da')+U.prRow('Maternity',12,20,'pf-ac')+U.prRow('Pediatrics',10,15,'pf-su')+U.prRow('Orthopedics',10,15,'pf-wa'),'ti-building-hospital')+`</div>`;
+};
+
+P.appointments=function(){
+  return U.ph('Appointments','Doctor appointment scheduling',`<button class="btn btn-pr" onclick="U.toast('Appointment booked!','success')"><i class="ti ti-plus"></i> Book Appointment</button>`)+
+  `<div class="mg">${U.metric('Today','62')}${U.metric('Pending','18','','wa')}${U.metric('Confirmed','44','','su')}${U.metric('This Week','210')}</div>`+
+  U.card("Today's Appointments",U.table([{l:'Time'},{l:'Patient'},{l:'Doctor'},{l:'Dept',xs:true},{l:'Status'},{l:'Action'}],[
+    ['9:00 AM',U.pc('Mohan Desai'),'Dr. Patel','Cardiology',U.st('approved'),`<button class="btn btn-ol btn-sm">Attend</button>`],
+    ['10:00 AM',U.pc('Rima Shah'),'Dr. Mehta','Gynecology',U.st('pending'),`<button class="btn btn-ol btn-sm">Confirm</button>`],
+    ['11:30 AM',U.pc('Kiran Patil'),'Dr. Kumar','Surgery',U.st('approved'),`<button class="btn btn-ol btn-sm">Attend</button>`],
+  ]),'ti-calendar-check');
+};
+
+P.lab=function(){
+  return U.ph('Laboratory','Test orders, results & sample tracking',`<button class="btn btn-pr" onclick="U.toast('Test order created!','success')"><i class="ti ti-plus"></i> New Test Order</button>`)+
+  `<div class="mg">${U.metric('Tests Today','86')}${U.metric('Pending','14','','wa')}${U.metric('Ready','72','','su')}${U.metric('This Month','284')}</div>`+
+  U.card('Recent Lab Orders',U.table([{l:'Order ID'},{l:'Patient'},{l:'Test'},{l:'Time',xs:true},{l:'Status'}],[
+    ['LAB-2241',U.pc('Ramabai Jadhav'),'CBC + LFT','9:30 AM',U.st('approved')],
+    ['LAB-2242',U.pc('Suresh Nikam'),'ABG, Troponin, D-Dimer','10:00 AM',U.st('pending')],
+    ['LAB-2243',U.pc('Priya Sharma'),'HbsAg, HIV, Blood Group','10:20 AM',U.st('active')],
+  ]),'ti-microscope');
+};
+
+P.pharmacy=function(){
+  return U.ph('Pharmacy','Prescription dispensing & stock',`<button class="btn btn-pr" onclick="U.toast('Dispensed!','success')"><i class="ti ti-plus"></i> Dispense</button>`)+
+  `<div class="mg">${U.metric('Today Dispensed','124')}${U.metric('Prescriptions','148')}${U.metric('Low Stock','3','','wa')}${U.metric('Out of Stock','1','','da')}</div>`+
+  U.card('Recent Dispensing',U.table([{l:'Rx ID'},{l:'Patient'},{l:'Doctor',xs:true},{l:'Drugs',xs:true},{l:'Status'}],[
+    ['RX-8821',U.pc('Mohan Desai'),'Dr. Patel','Amoxicillin 500mg x 10, Paracetamol x 5',U.st('active')],
+    ['RX-8822',U.pc('Ramabai Jadhav'),'Dr. Patel','Metformin 500mg x 30',U.st('approved')],
+  ]),'ti-pill');
+};
+
+P.billing=function(){
+  return U.ph('Billing','Patient billing & payment management',`<button class="btn btn-pr" onclick="openBillModal()"><i class="ti ti-plus"></i> Generate Bill</button>`)+
+  `<div class="mg">${U.metric('Today','₹1.8L','','su')}${U.metric('Monthly','₹42.6L')}${U.metric('Pending','₹3.4L','','wa')}${U.metric('Outstanding','₹89K','','da')}</div>`+
+  U.card('Billing Register',U.table([{l:'Bill No.'},{l:'Patient'},{l:'Date',xs:true},{l:'Amount'},{l:'Paid'},{l:'Balance'},{l:'Status'}],
+    DB.billing.map(b=>[`<strong>#${b.id}</strong>`,U.pc(b.patient,b.uhid),b.date,`₹${b.amount.toLocaleString('en-IN')}`,`₹${b.paid.toLocaleString('en-IN')}`,b.amount>b.paid?`₹${(b.amount-b.paid).toLocaleString('en-IN')}`:'—',U.st(b.status)])
+  ),'ti-receipt');
+};
+
+P.finance=function(){
+  const rev={opd:840000,ipd:1820000,lab:560000,pharmacy:640000,radiology:300000,ambulance:40000};
+  const rl={opd:'OPD',ipd:'IPD / Admission',lab:'Laboratory',pharmacy:'Pharmacy',radiology:'Radiology',ambulance:'Ambulance'};
+  const totalR=Object.values(rev).reduce((a,b)=>a+b,0);
+  const totalE=3140000;
+  return U.ph('Finance Reports','Revenue, expenses & analytics',`<button class="btn btn-ol"><i class="ti ti-download"></i> Download</button>`)+
+  `<div class="mg">${U.metric('Revenue',DB.inr(totalR),'↑ 11.8% vs last month','su')}${U.metric('Expenses',DB.inr(totalE),'','da')}${U.metric('Surplus',DB.inr(totalR-totalE),'','wa')}${U.metric('Pending Dues','₹3.4L','','ac')}</div><div class="g2">`+
+  U.card('Revenue Breakdown',U.table([{l:'Head'},{l:'This Month'},{l:'Change',xs:true}],
+    Object.entries(rev).map(([k,v])=>[rl[k],`<strong>₹${v.toLocaleString('en-IN')}</strong>`,`<span style="color:var(--su)">↑ 8%</span>`])
+  ),'ti-chart-bar')+
+  U.card('Expense Breakdown',U.table([{l:'Head'},{l:'Amount'}],[
+    ['Salaries & Wages','₹14,00,000'],['Medicines','₹4,20,000'],['Equipment','₹3,00,000'],['Utilities','₹80,000'],['Maintenance','₹1,40,000']
+  ]),'ti-chart-pie')+`</div>`;
+};
+
+P.inventory=function(){
+  const cr=DB.inventory.filter(i=>i.status==='critical').length;
+  const lw=DB.inventory.filter(i=>i.status==='low').length;
+  const ot=DB.inventory.filter(i=>i.status==='out').length;
+  return U.ph('Inventory','Medical supplies & stock management',`<button class="btn btn-pr" onclick="U.toast('Item form opening...','default')"><i class="ti ti-plus"></i> Add Item</button>`)+
+  `<div class="mg">${U.metric('Total Items','842+')}${U.metric('Critical Low',cr,'','da')}${U.metric('Low Stock',lw,'','wa')}${U.metric('Out of Stock',ot,'','da')}</div>`+
+  U.card('Stock Alerts',U.table([{l:'Item'},{l:'Category',xs:true},{l:'Stock'},{l:'Min',xs:true},{l:'Status'},{l:'Action'}],
+    DB.inventory.map(i=>[`<strong>${i.name}</strong>`,i.cat,`${i.stock} ${i.unit}`,`${i.min}`,U.st(i.status),
+      i.status==='out'?`<button class="btn btn-da btn-sm" onclick="U.toast('Urgent PO raised!','success')">URGENT PO</button>`:
+      i.status==='critical'||i.status==='low'?`<button class="btn btn-ac btn-sm" onclick="U.toast('PO raised!','success')">Raise PO</button>`:`<span class="tag tg-gr">OK</span>`])
+  ),'ti-package');
+};
+
+P.tenders=function(){
+  return U.ph('Tenders','Hospital tender management',`<button class="btn btn-pr" onclick="U.toast('Tender form opening...','default')"><i class="ti ti-plus"></i> Float Tender</button>`)+
+  `<div class="mg">${U.metric('Open',DB.tenders.filter(t=>t.status==='open').length,'','su')}${U.metric('Evaluation',DB.tenders.filter(t=>t.status==='evaluation').length,'','wa')}${U.metric('Awarded',DB.tenders.filter(t=>t.status==='awarded').length,'','in')}</div>`+
+  U.card('Tender Register',U.table([{l:'ID'},{l:'Title'},{l:'Deadline'},{l:'Bids',xs:true},{l:'Value'},{l:'Status'}],
+    DB.tenders.map(t=>[t.id,`<strong>${t.title}</strong>`,t.deadline,t.bids,DB.inr(t.value),U.st(t.status)])
+  ),'ti-file-text');
+};
+
+P.audit=function(){
+  return U.ph('Audit Logs','System activity & compliance trail',`<button class="btn btn-ol"><i class="ti ti-download"></i> Export</button>`)+
+  U.card('Recent Activity',`<div class="tl">${DB.auditLog.map(a=>U.tlItem(`${a.time} — by ${a.user}`,a.action)).join('')}</div>`,'ti-clipboard-check');
+};
+
+P.documents=function(){
+  const docs=[
+    {name:'Hospital Registration Certificate',type:'PDF',date:'Apr 2023'},
+    {name:'NMC Accreditation Document',        type:'PDF',date:'Jan 2022'},
+    {name:'NABL Lab Accreditation',            type:'PDF',date:'Nov 2023'},
+    {name:'HR Policy Manual 2025',             type:'DOCX',date:'Jun 2025'},
+    {name:'Bio-Medical Waste License',         type:'PDF',date:'Aug 2022'},
+    {name:'Pharmacy License KAR',              type:'PDF',date:'Jun 2023'},
+  ];
+  return U.ph('Documents','Hospital policies, legal docs & certificates',`<button class="btn btn-pr" onclick="U.toast('Upload ready','default')"><i class="ti ti-upload"></i> Upload</button>`)+
+  U.card('Document Vault',
+    `<div class="frow"><div class="sbar" style="flex:1;max-width:280px"><i class="ti ti-search"></i><input placeholder="Search documents..."></div></div>`+
+    U.table([{l:'Document Name'},{l:'Type'},{l:'Date',xs:true},{l:'Action'}],
+      docs.map(d=>[`<div class="fc gap8"><i class="ti ${d.type==='PDF'?'ti-file-type-pdf':'ti-file-type-doc'}" style="font-size:20px;color:${d.type==='PDF'?'#e74c3c':'#2980b9'}"></i>${d.name}</div>`,`<span class="tag tg-gy">${d.type}</span>`,d.date,`<div style="display:flex;gap:5px"><button class="btn btn-ol btn-sm"><i class="ti ti-eye"></i></button><button class="btn btn-ol btn-sm"><i class="ti ti-download"></i></button></div>`])
+    ),'ti-folder');
+};
+
+P.settings=function(){
+  return U.ph('Settings','Hospital configuration & preferences')+
+  `<div class="g2">`+
+  U.card('Hospital Information',
+    U.fg('Hospital Name',U.inp('hn','text','',DB.hospital.name))+
+    U.fg('Location',U.inp('loc','text','',DB.hospital.location))+
+    U.fg('Registration No.',U.inp('rn','text','',DB.hospital.reg))+
+    U.fg('Phone',U.inp('ph','tel','',DB.hospital.phone))+
+    U.fg('Email',U.inp('em','email','',DB.hospital.email))+
+    `<button class="btn btn-pr" onclick="U.toast('Settings saved!','success')"><i class="ti ti-device-floppy"></i> Save</button>`
+  )+
+  U.card('Security Settings',
+    U.fg('Session Timeout (min)',U.inp('st','number','','30'))+
+    U.fg('Two-Factor Auth',U.sel('tfa',['Enabled (All Admins)','Super Admin Only','Disabled']))+
+    U.fg('Audit Log Retention (days)',U.inp('alr','number','','365'))+
+    `<button class="btn btn-pr" onclick="U.toast('Security updated!','success')"><i class="ti ti-lock"></i> Update</button>`
+  )+`</div>`;
+};
+
+P.roles=function(){
+  const c=`<span style="color:var(--su);font-size:15px">✅</span>`;
+  const x=`<span style="color:var(--t3)">—</span>`;
+  const p=s=>`<span class="tag tg-am">${s}</span>`;
+  return U.ph('Roles & Access Control','Manage permissions from D Group to Chairman',`<button class="btn btn-pr" onclick="U.toast('Add user form opening...','default')"><i class="ti ti-plus"></i> Add User</button>`)+
+  U.card('Permission Matrix',U.table([{l:'Role'},{l:'Users'},{l:'Dashboard'},{l:'Purchase',xs:true},{l:'Hiring'},{l:'Finance',xs:true},{l:'Chairman'},{l:'NMC'}],[
+    [`<strong>Chairman</strong>`,'1',c,c,c,c,c,c],
+    [`<strong>CEO / Director</strong>`,'1',c,c,c,p('View'),c,c],
+    [`<strong>Medical Supt.</strong>`,'1',c,p('Dept'),p('Medical'),x,x,c],
+    [`<strong>HOD</strong>`,'9',c,p('Raise'),p('Recommend'),x,x,p('View')],
+    [`<strong>HR Manager</strong>`,'2',c,x,c,p('Salary'),x,x],
+    [`<strong>Finance Officer</strong>`,'3',c,p('Process'),x,c,x,x],
+    [`<strong>Reception</strong>`,'12',c,x,x,x,x,x],
+    [`<strong>D Group Staff</strong>`,'48',x,x,x,x,x,x],
+  ]),'ti-lock');
+};
+
+/* ═══════════ MODAL FORMS ═══════════ */
+function openPOModal(){U.modal('Create Purchase Order',
+  `<div class="fr">${U.fg('PO Date',U.inp('d','date'))}${U.fg('Department',U.sel('dep',['Pharmacy','Lab','OT','ICU','Surgery','Housekeeping']))}</div>`+
+  U.fg('Vendor Name',U.inp('v','text','Company name'))+
+  `<div class="fr">${U.fg('Contact',U.inp('c','tel'))}${U.fg('Exp. Delivery',U.inp('dl','date'))}</div>`+
+  U.fg('Items (one per line)',U.ta('it','Item — Qty — Unit Price',3))+
+  `<div class="fr">${U.fg('Total Amount (₹)',U.inp('am','number','0'))}${U.fg('Priority',U.sel('pr',['Normal','Urgent','Critical']))}</div>`+
+  U.fg('Justification',U.ta('jr','Reason...',2))+
+  `<div class="mf"><button class="btn btn-ol" onclick="U.closeModal()">Cancel</button><button class="btn btn-pr" onclick="U.toast('PO submitted for approval!','success');U.closeModal()"><i class="ti ti-send"></i> Submit PO</button></div>`
+)}
+function openJobModal(){U.modal('Post Job Opening',
+  U.fg('Position',U.inp('pos','text','e.g. Staff Nurse'))+
+  `<div class="fr">${U.fg('Department',U.sel('dep',['General Ward','ICU','Pharmacy','Lab','D Group','Admin']))}${U.fg('Type',U.sel('type',['Full Time','Part Time','Contract']))}</div>`+
+  `<div class="fr">${U.fg('Vacancies',U.inp('v','number','1','1'))}${U.fg('Salary Range',U.inp('sal','text','₹25,000 – ₹35,000'))}</div>`+
+  U.fg('Qualification',U.inp('q','text','e.g. BSc Nursing, 2 yrs'))+
+  U.fg('Job Description',U.ta('jd','Duties & requirements...',3))+
+  `<div class="mf"><button class="btn btn-ol" onclick="U.closeModal()">Cancel</button><button class="btn btn-pr" onclick="U.toast('Job posted!','success');U.closeModal()">Post Opening</button></div>`
+)}
+function openLicenseModal(){U.modal('Add License / Certificate',
+  U.fg('License Name',U.inp('ln','text'))+
+  `<div class="fr">${U.fg('Issuing Authority',U.inp('ia','text'))}${U.fg('License Number',U.inp('no','text'))}</div>`+
+  `<div class="fr">${U.fg('Issue Date',U.inp('is','date'))}${U.fg('Expiry Date',U.inp('ex','date'))}</div>`+
+  U.fg('Responsible Person',U.inp('rp','text'))+
+  U.fg('Upload Document',`<input type="file" accept=".pdf,.jpg,.png" style="font-size:13px">`)+
+  `<div class="mf"><button class="btn btn-ol" onclick="U.closeModal()">Cancel</button><button class="btn btn-pr" onclick="U.toast('License saved!','success');U.closeModal()">Save License</button></div>`
+)}
+function openDirectiveModal(){U.modal('Add Chairman Directive',
+  U.fg('Date',U.inp('dd','date'))+
+  U.fg('Directive',U.ta('dt','Write directive here...',4))+
+  U.fg('Addressed To',U.sel('dt2',['All HODs','CEO','HR Manager','Finance','All Staff']))+
+  `<div class="mf"><button class="btn btn-ol" onclick="U.closeModal()">Cancel</button><button class="btn btn-pr" onclick="U.toast('Directive saved!','success');U.closeModal()">Save Directive</button></div>`
+)}
+function openUpdateModal(){U.modal('Post Daily Update',
+  U.fg('Title',U.inp('ut','text','Update heading...'))+
+  `<div class="fr">${U.fg('Category',U.sel('uc',['General','Urgent','HR','Inventory','Equipment','Facilities']))}${U.fg('Visible To',U.sel('uv',['All Staff','Doctors Only','Nurses Only','Admin Only','D Group']))}</div>`+
+  U.fg('Message',U.ta('um','Detailed update...',4))+
+  `<div class="mf"><button class="btn btn-ol" onclick="U.closeModal()">Cancel</button><button class="btn btn-pr" onclick="U.toast('Update posted!','success');U.closeModal()">Post Update</button></div>`
+)}
+function openAddStaffModal(){U.modal('Add Staff Member',
+  `<div class="fr">${U.fg('First Name',U.inp('fn','text'))}${U.fg('Last Name',U.inp('ln','text'))}</div>`+
+  `<div class="fr">${U.fg('Role',U.sel('rl',['Doctor','Nurse','Technician','Admin','Pharmacist']))}${U.fg('Department',U.sel('dep',['General Ward','ICU','Cardiology','Surgery','Lab','Pharmacy']))}</div>`+
+  `<div class="fr">${U.fg('Phone',U.inp('ph','tel'))}${U.fg('Joining Date',U.inp('jd','date'))}</div>`+
+  U.fg('Qualification',U.inp('qf','text','e.g. MBBS, BSc Nursing'))+
+  U.fg('Salary Grade',U.sel('sg',['A1','A2','B1','B2','C1','C2','D1','D2']))+
+  `<div class="mf"><button class="btn btn-ol" onclick="U.closeModal()">Cancel</button><button class="btn btn-pr" onclick="U.toast('Staff added!','success');U.closeModal()">Add Staff</button></div>`
+)}
+function openDGroupModal(){U.modal('Add D Group Staff',
+  `<div class="fr">${U.fg('Full Name',U.inp('nm','text'))}${U.fg('Date of Birth',U.inp('db','date'))}</div>`+
+  `<div class="fr">${U.fg('Category',U.sel('ct',['Ward Boy','Housekeeping','Security','Sweeper','Kitchen','Laundry','Gardener']))}${U.fg('Zone / Area',U.inp('zn','text','e.g. OPD Block'))}</div>`+
+  `<div class="fr">${U.fg('Shift',U.sel('sh',['Morning (6AM–2PM)','Afternoon (2PM–10PM)','Night (10PM–6AM)']))}${U.fg('Joining Date',U.inp('jd','date'))}</div>`+
+  `<div class="fr">${U.fg('Phone',U.inp('ph','tel'))}${U.fg('Aadhaar No.',U.inp('ad','text'))}</div>`+
+  `<div class="mf"><button class="btn btn-ol" onclick="U.closeModal()">Cancel</button><button class="btn btn-pr" onclick="U.toast('D Group staff added!','success');U.closeModal()">Add Staff</button></div>`
+)}
+function openPatientModal(){U.modal('Register New Patient',
+  `<div class="fr">${U.fg('Full Name',U.inp('pn','text'))}${U.fg('Date of Birth',U.inp('pd','date'))}</div>`+
+  `<div class="fr">${U.fg('Gender',U.sel('pg',['Male','Female','Other']))}${U.fg('Blood Group',U.sel('pb',['A+','A-','B+','B-','O+','O-','AB+','AB-']))}</div>`+
+  `<div class="fr">${U.fg('Phone',U.inp('pp','tel'))}${U.fg('Aadhaar No.',U.inp('pa','text'))}</div>`+
+  U.fg('Address',U.ta('px','Full address...',2))+
+  `<div class="fr">${U.fg('Visit Type',U.sel('pv',['OPD','IPD Admission','Emergency']))}${U.fg('Doctor',U.sel('pdr',['Dr. Arvind Patel','Dr. Sneha Mehta','Dr. Rajan Kumar','Dr. Priya Nair','Dr. Amit Joshi']))}</div>`+
+  `<div class="mf"><button class="btn btn-ol" onclick="U.closeModal()">Cancel</button><button class="btn btn-pr" onclick="U.toast('Patient registered!','success');U.closeModal()">Register Patient</button></div>`
+)}
+function openBillModal(){U.modal('Generate Bill',
+  U.fg('Patient UHID / Name',U.inp('bp','text','Search patient...'))+
+  U.fg('Services',U.ta('bs','OPD, Lab tests, Medicines (one per line)',3))+
+  `<div class="fr">${U.fg('Total Amount (₹)',U.inp('bt','number','0'))}${U.fg('Amount Paid (₹)',U.inp('bpa','number','0'))}</div>`+
+  U.fg('Payment Mode',U.sel('bm',['Cash','UPI / QR','Card','Insurance','NEFT/RTGS']))+
+  `<div class="mf"><button class="btn btn-ol" onclick="U.closeModal()">Cancel</button><button class="btn btn-pr" onclick="U.toast('Bill generated!','success');U.closeModal()">Generate Bill</button></div>`
+)}
+
+/* ═══════════ SEARCH ═══════════ */
+function doSearch(q){
+  const el=document.getElementById('search-res');if(!el)return;
+  if(!q){el.innerHTML='<div class="es"><i class="ti ti-search"></i><h4>Type to search</h4></div>';return;}
+  const ql=q.toLowerCase();
+  let results=[];
+  DB.patients.filter(p=>p.name.toLowerCase().includes(ql)||p.uhid.toLowerCase().includes(ql)).forEach(p=>results.push({icon:'ti-user-heart',color:'ai-bl',text:`Patient: ${p.name} (${p.uhid})`,sub:p.ward,page:'patients'}));
+  DB.staff.filter(s=>s.name.toLowerCase().includes(ql)||s.dept.toLowerCase().includes(ql)).forEach(s=>results.push({icon:'ti-users',color:'ai-gr',text:`Staff: ${s.name} — ${s.dept}`,sub:s.role,page:'staff'}));
+  DB.pos.filter(p=>p.id.toLowerCase().includes(ql)||p.vendor.toLowerCase().includes(ql)).forEach(p=>results.push({icon:'ti-file-invoice',color:'ai-am',text:`PO: ${p.id} — ${p.vendor}`,sub:`${DB.inr(p.amount)} • ${p.status}`,page:'purchase'}));
+  DB.licenses.filter(l=>l.name.toLowerCase().includes(ql)).forEach(l=>results.push({icon:'ti-certificate',color:'ai-rd',text:`License: ${l.name}`,sub:l.status,page:'nmc'}));
+  if(!results.length){el.innerHTML='<div class="es"><i class="ti ti-search-off"></i><h4>No results found</h4><p>Try different keywords</p></div>';return;}
+  el.innerHTML=results.slice(0,10).map(r=>`<div class="ai" style="cursor:pointer" onclick="showPage('${r.page}')"><div class="ai-icon ${r.color}"><i class="ti ${r.icon}"></i></div><div class="ai-body"><p>${r.text}</p><span>${r.sub}</span></div></div>`).join('');
+}
+
+/* ═══════════ TABS INIT ═══════════ */
+function initTabs(container){
+  container.querySelectorAll('.tab').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const id=btn.dataset.tp;
+      container.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b===btn));
+      container.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.id===id));
+    });
+  });
+}
+
+/* ═══════════ SHOW PAGE ═══════════ */
+function showPage(pid){
+  const renderer=P[pid];
+  if(!renderer){U.toast('Page coming soon','default');return;}
+  setActiveNav(pid);
+  const content=document.getElementById('page-content');
+  content.innerHTML='<div class="page-loading"><div class="spinner"></div><p>Loading...</p></div>';
+  requestAnimationFrame(()=>{
+    try{
+      content.innerHTML=renderer.call(P);
+      // init tabs
+      const tabsEl=content.querySelector('.tabs');
+      if(tabsEl){
+        const panel=tabsEl.parentElement;
+        initTabs(panel);
+      }
+    }catch(e){
+      content.innerHTML=`<div class="card"><p class="tm">Error: ${e.message}</p></div>`;
+      console.error(e);
+    }
+  });
+}
+
+/* ═══════════ AUTH ═══════════ */
+function doLogin(){
+  const user=document.getElementById('lu').value.trim();
+  const pass=document.getElementById('lp').value.trim();
+  const role=document.getElementById('lr').value;
+  if(!user||!pass){U.toast('Please enter username and password','error');return;}
+  const roleInfo=DB.roles[role]||DB.roles.admin;
+  document.getElementById('sb-name').textContent=user.charAt(0).toUpperCase()+user.slice(1);
+  document.getElementById('sb-role').textContent=roleInfo.label;
+  document.getElementById('sb-av').textContent=DB.initials(user+' x');
+  document.getElementById('sb-av').className='av av-md '+roleInfo.col;
+  buildNav(role);
+  document.getElementById('login-screen').classList.add('hidden');
+  document.getElementById('app-shell').classList.remove('hidden');
+  showPage('dashboard');
+  U.toast('Welcome, '+user.charAt(0).toUpperCase()+user.slice(1)+'!','success');
+}
+function doLogout(){
+  if(!confirm('Sign out of SRP Hospital?'))return;
+  document.getElementById('app-shell').classList.add('hidden');
+  document.getElementById('login-screen').classList.remove('hidden');
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&!document.getElementById('login-screen').classList.contains('hidden'))doLogin();
+});
+</script>
 </body>
 </html>
